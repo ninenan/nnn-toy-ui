@@ -8,11 +8,19 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Button size={ButtonSize.Default} btnType={ButtonType.Primary}>
+        <Button
+          size={ButtonSize.Default}
+          btnType={ButtonType.Primary}
+          autoFocus
+        >
           primary-default
         </Button>
         <br />
-        <Button size={ButtonSize.Large} btnType={ButtonType.Warning}>
+        <Button
+          size={ButtonSize.Large}
+          btnType={ButtonType.Warning}
+          onClick={() => alert(111)}
+        >
           Warning-large
         </Button>
         <br />
