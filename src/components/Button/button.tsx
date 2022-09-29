@@ -16,8 +16,7 @@ export enum ButtonType {
 
 export enum ButtonSize {
   Large = 'lg',
-  Small = 'sm',
-  Default = 'df'
+  Small = 'sm'
 }
 
 interface IBaseButtonProps {
@@ -28,9 +27,12 @@ interface IBaseButtonProps {
   className?: string;
 }
 
-type NativeBtnProps = IBaseButtonProps & ButtonHTMLAttributes<HTMLElement>;
+// ButtonHTMLAttributes 可以获取到 button 标签原生的所有属性
+type NativeBtnProps = IBaseButtonProps &
+  ButtonHTMLAttributes<HTMLButtonElement>;
+// AnchorHTMLAttributes 可以获取到 a 标签原生的所有属性
 type NativeAnchorBtnProps = IBaseButtonProps &
-  AnchorHTMLAttributes<HTMLElement>;
+  AnchorHTMLAttributes<HTMLAnchorElement>;
 
 export type ButtonProps = Partial<NativeBtnProps & NativeAnchorBtnProps>;
 
@@ -64,8 +66,7 @@ const button: React.FC<PropsWithChildren<ButtonProps>> = props => {
 };
 
 button.defaultProps = {
-  size: ButtonSize.Default,
-  btnType: ButtonType.Primary
+  btnType: ButtonType.Default
 };
 
 export default button;

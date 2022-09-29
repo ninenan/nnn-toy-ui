@@ -55,6 +55,10 @@
   @include button-style($danger, $danger, $white);
 }
 
+.btn-warning {
+  @include button-style($warning, $warning, $white);
+}
+
 .btn-default {
   @include button-style(
     $white,

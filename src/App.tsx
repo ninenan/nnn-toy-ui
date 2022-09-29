@@ -8,11 +8,9 @@ function App() {
     <div className="App">
       <header className="App-header">
         <img src={logo} className="App-logo" alt="logo" />
-        <Button
-          size={ButtonSize.Default}
-          btnType={ButtonType.Primary}
-          autoFocus
-        >
+        <Button autoFocus>button</Button>
+        <br />
+        <Button btnType={ButtonType.Primary} autoFocus>
           primary-default
         </Button>
         <br />
@@ -28,15 +26,11 @@ function App() {
           Danger-small
         </Button>
         <br />
-        <Button disabled size={ButtonSize.Default} btnType={ButtonType.Primary}>
+        <Button disabled btnType={ButtonType.Primary}>
           primary-disabled
         </Button>
         <br />
-        <Button
-          size={ButtonSize.Default}
-          btnType={ButtonType.Link}
-          href="www.baidu.com"
-        >
+        <Button btnType={ButtonType.Link} href="www.baidu.com">
           link-default
         </Button>
         <br />
@@ -52,6 +46,7 @@ function App() {
           size={ButtonSize.Small}
           btnType={ButtonType.Link}
           href="www.baidu.com"
+          target="_blank"
         >
           link-small
         </Button>
@@ -60,6 +55,7 @@ function App() {
           size={ButtonSize.Small}
           btnType={ButtonType.Link}
           href="www.baidu.com"
+          onClick={() => alert(333)}
           disabled
         >
           link-disabled
