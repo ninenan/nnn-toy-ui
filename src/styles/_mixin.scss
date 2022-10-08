@@ -33,3 +33,37 @@
     border-color: $border;
   }
 }
+
+@mixin alert-color($background-color, $color) {
+  color: $color;
+  background-color: $background-color;
+}
+
+@mixin zoom-animation(
+  $direction: 'top',
+  $scalleStart: scaleY(0),
+  $scaleEnd: scaleY(1),
+  $origin: center top
+) {
+  .zoom-in-#{$direction}-enter {
+    opacity: 0;
+    transform: $scalleStart;
+  }
+  .zoom-in-#{$direction}-enter-active {
+    opacity: 1;
+    transform: $scaleEnd;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s,
+      opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    transform-origin: $origin;
+  }
+  .zoom-in-#{$direction}-exit {
+    opacity: 1;
+  }
+  .zoom-in-#{$direction}-exit-active {
+    opacity: 0;
+    transform: $scalleStart;
+    transition: transform 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s,
+      opacity 0.3s cubic-bezier(0.23, 1, 0.32, 1) 0.1s;
+    transform-origin: $origin;
+  }
+}

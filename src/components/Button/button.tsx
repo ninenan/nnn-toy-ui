@@ -14,6 +14,14 @@ export enum ButtonType {
   Warning = 'warning'
 }
 
+// export type ButtonType =
+//   | 'primary'
+//   | 'default'
+//   | 'link'
+//   | 'text'
+//   | 'danger'
+//   | 'warning';
+
 export enum ButtonSize {
   Large = 'lg',
   Small = 'sm'

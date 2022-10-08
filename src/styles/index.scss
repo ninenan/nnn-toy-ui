@@ -1,6 +1,11 @@
 @import 'variable';
 @import 'reset';
 @import 'mixin';
+@import 'animation';
 
 // button
-@import '../components/Button/button.scss';
+@import '../components/Button/style';
+// icon
+@import '../components/Icon/style';
+// alert
+@import '../components/Alert/style';
