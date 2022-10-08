@@ -1,4 +1,4 @@
-import React, { PropsWithChildren, useState, useRef } from 'react';
+import React, { PropsWithChildren, useState, ReactNode } from 'react';
 import CSSTransition from 'react-transition-group/CSSTransition';
 import classNames from 'classnames';
 import Icon from '../Icon';
@@ -21,11 +21,9 @@ export interface AlertProps {
   // 类型
   type: AlertType;
   // 自定义关闭按钮
-  customClose?: string;
+  customClose?: ReactNode;
   // 信息
   message: string;
-  // 关闭文案
-  closeText?: string;
   // 关闭动画结束后触发的回调函数
   afterClose?: voidFnType;
 }
@@ -38,7 +36,6 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
     type = 'primary',
     customClose,
     message,
-    closeText,
     afterClose
   } = props;
 
@@ -72,11 +69,7 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
       <div className={classess}>
         {title && <h4 className="alert-title">{title}</h4>}
         <p className="alert-message">{message}</p>
-        {closable && (
-          <i onClick={handleCloseClick}>
-            {closeText ? closeText : customCloseEle}
-          </i>
-        )}
+        {closable && <i onClick={handleCloseClick}>{customCloseEle}</i>}
       </div>
     </CSSTransition>
   );

@@ -1,7 +1,7 @@
 import React from 'react';
 
 import './styles/index.scss';
-// import Button, { ButtonSize, ButtonType } from './components/Button';
+import Button, { ButtonSize, ButtonType } from './components/Button';
 import Icon from './components/Icon';
 import Alert from './components/Alert';
 
@@ -14,7 +14,7 @@ function App() {
           message="message"
           type="default"
           afterClose={() => alert(222)}
-          closeText="test"
+          customClose="close"
         />
       </header>
     </div>
