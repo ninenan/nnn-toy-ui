@@ -29,15 +29,8 @@ export interface AlertProps {
 }
 
 const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
-  const {
-    title,
-    closable = true,
-    onClose,
-    type = 'primary',
-    customClose,
-    message,
-    afterClose
-  } = props;
+  const { title, closable, onClose, type, customClose, message, afterClose } =
+    props;
 
   const [visable, setVisable] = useState(true);
   const classess = classNames('alert', {
@@ -73,6 +66,12 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
       </div>
     </CSSTransition>
   );
+};
+
+// 也可以解构的时候直接赋默认值
+Alert.defaultProps = {
+  closable: true,
+  type: 'primary'
 };
 
 export default Alert;

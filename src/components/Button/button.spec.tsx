@@ -7,8 +7,8 @@ const defaultProps = {
 };
 
 const testProps: ButtonProps = {
-  btnType: ButtonType.Primary,
-  size: ButtonSize.Large,
+  btnType: 'primary',
+  size: 'lg',
   className: 'test'
 };
 
@@ -43,7 +43,7 @@ describe('test Button component', () => {
 
   it('should render a link when btnType equals link and href is provided', () => {
     const wrapper = render(
-      <Button btnType={ButtonType.Link} href="www.baidu.com">
+      <Button btnType="link" href="www.baidu.com">
         button-link
       </Button>
     );

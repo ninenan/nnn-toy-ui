@@ -5,27 +5,15 @@ import React, {
   AnchorHTMLAttributes
 } from 'react';
 
-export enum ButtonType {
-  Primary = 'primary',
-  Default = 'default',
-  Link = 'link',
-  Text = 'text',
-  Danger = 'danger',
-  Warning = 'warning'
-}
+export type ButtonType =
+  | 'primary'
+  | 'default'
+  | 'link'
+  | 'text'
+  | 'danger'
+  | 'warning';
 
-// export type ButtonType =
-//   | 'primary'
-//   | 'default'
-//   | 'link'
-//   | 'text'
-//   | 'danger'
-//   | 'warning';
-
-export enum ButtonSize {
-  Large = 'lg',
-  Small = 'sm'
-}
+export type ButtonSize = 'lg' | 'sm';
 
 interface IBaseButtonProps {
   size?: ButtonSize;
@@ -51,10 +39,10 @@ const button: React.FC<PropsWithChildren<ButtonProps>> = props => {
   const classes = classNames('btn', className, {
     [`btn-${btnType}`]: btnType,
     [`btn-${size}`]: size,
-    disabled: disabled && btnType === ButtonType.Link
+    disabled: disabled && btnType === 'link'
   });
 
-  if (btnType === ButtonType.Link && href) {
+  if (btnType === 'link' && href) {
     return (
       <a className={classes} href={href} {...restProps}>
         {children}
@@ -74,7 +62,7 @@ const button: React.FC<PropsWithChildren<ButtonProps>> = props => {
 };
 
 button.defaultProps = {
-  btnType: ButtonType.Default
+  btnType: 'default'
 };
 
 export default button;

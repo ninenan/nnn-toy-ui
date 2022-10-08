@@ -1,5 +1,3 @@
-import Button, { ButtonSize as size, ButtonType as type } from './button';
+import Button from './button';
 
-export const ButtonSize = size;
-export const ButtonType = type;
 export default Button;
