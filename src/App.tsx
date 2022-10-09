@@ -1,11 +1,11 @@
 import React from 'react';
 
 import './styles/index.scss';
-import Button from './components/Button';
 import Icon from './components/Icon';
 import Alert from './components/Alert';
 import Menu from './components/Menu';
 import MenuItem from './components/Menu/menuItem';
+import SubMenu from './components/Menu/subMenu';
 
 function App() {
   return (
@@ -16,15 +16,24 @@ function App() {
           message="message"
           type="default"
           afterClose={() => console.log('test-afterClose')}
-          customClose={<Button size="sm">close-btn</Button>}
         />
-        <Menu defaultIndex={0} onSelect={index => console.log(index)}>
-          <MenuItem index={0}>test001</MenuItem>
-          <MenuItem index={2}>test002</MenuItem>
-          <MenuItem index={3} disabled>
-            test003
-          </MenuItem>
-          <MenuItem index={4}>test004</MenuItem>
+        <Menu
+          defaultIndex="0"
+          onSelect={index => console.log(index)}
+          defaultOpenSubMenus={['2']}
+          mode="vertical"
+        >
+          <MenuItem>test001</MenuItem>
+          <MenuItem disabled>test002</MenuItem>
+          <SubMenu title="dropdown">
+            <MenuItem>dropdown01</MenuItem>
+            <MenuItem>dropdown02</MenuItem>
+          </SubMenu>
+          <MenuItem>test004 test004 test004</MenuItem>
+          <SubMenu title="dropdown-04">
+            <MenuItem>dropdown0401</MenuItem>
+            <MenuItem>dropdown0402</MenuItem>
+          </SubMenu>
         </Menu>
       </header>
     </div>

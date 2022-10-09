@@ -14,13 +14,15 @@
     &:focus {
       text-decoration: none;
     }
+    &.disabled {
+      cursor: not-allowed;
+      color: $menu-item-disabled-color;
+      &:hover {
+        color: $menu-item-disabled-color;
+      }
+    }
     &:hover {
       color: $menu-item-active-color;
-    }
-    &.disabled {
-      color: $menu-item-disabled-color;
-      pointer-events: none;
-      cursor: default;
     }
     &.active {
       color: $menu-item-active-color;
@@ -54,8 +56,8 @@
       transform: rotate(180deg) !important;
     }
   }
-  .viking-submenu {
-    // display: none;
+  .submenu {
+    display: none;
     list-style: none;
     padding-left: 0;
     white-space: nowrap;
@@ -65,10 +67,13 @@
       cursor: pointer;
       transition: $menu-transition;
       color: $body-color;
-      &.is-active,
-      &:hover {
-        color: $menu-item-active-color !important;
+      &:hover,
+      &.active {
+        color: $menu-item-active-color;
       }
+    }
+    &-opened {
+      display: block;
     }
   }
 }
@@ -81,7 +86,7 @@
     position: absolute;
     background: $white;
     z-index: 100;
-    top: calc(100% + 8px);
+    top: calc(100% + $menu-item-active-border-width);
     left: 0;
     border: $menu-border-width solid $menu-border-color;
     box-shadow: $submenu-box-shadow;
@@ -97,7 +102,7 @@
     border-left: $menu-item-active-border-width solid transparent;
     &.active {
       border-bottom: 0px;
-      border-left: $menu-item-active-border-width solid $menu-item-active-color;
+      border-right: $menu-item-active-border-width solid $menu-item-active-color;
     }
     &:hover {
       color: $menu-item-active-color;
