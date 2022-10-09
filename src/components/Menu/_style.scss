@@ -72,9 +72,9 @@
         color: $menu-item-active-color;
       }
     }
-    &-opened {
-      display: block;
-    }
+  }
+  .submenu.menu-opened {
+    display: block;
   }
 }
 

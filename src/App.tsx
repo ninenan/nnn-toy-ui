@@ -21,7 +21,6 @@ function App() {
           defaultIndex="0"
           onSelect={index => console.log(index)}
           defaultOpenSubMenus={['2']}
-          mode="vertical"
         >
           <MenuItem>test001</MenuItem>
           <MenuItem disabled>test002</MenuItem>

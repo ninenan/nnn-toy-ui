@@ -62,7 +62,7 @@ const SubMenu: FC<PropsWithChildren<ISubMenuProps>> = props => {
 
   const renderChildren = () => {
     const subClassess = classNames('submenu', {
-      'submenu-opened': isOpen
+      'menu-opened': isOpen
     });
     const childComponent = Children.map(children, (child, i) => {
       const childEl = child as FunctionComponentElement<IMenuItemProps>;
