@@ -1,7 +1,7 @@
 import React, { PropsWithChildren, CSSProperties, FC, useContext } from 'react';
 import classNames from 'classnames';
 
-import { MenuContext } from './menu';
+import MenuContext from './menuContext';
 
 export interface IMenuItemProps {
   index?: string;

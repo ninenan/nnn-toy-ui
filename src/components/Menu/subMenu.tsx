@@ -9,7 +9,7 @@ import React, {
   useState
 } from 'react';
 import classNames from 'classnames';
-import { MenuContext } from './menu';
+import MenuContext from './menuContext';
 import { IMenuItemProps } from './menuItem';
 
 export interface ISubMenuProps {

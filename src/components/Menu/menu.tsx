@@ -1,5 +1,4 @@
 import React, {
-  createContext,
   useState,
   cloneElement,
   Children,
@@ -10,9 +9,10 @@ import classNames from 'classnames';
 
 import { TEST_MENU_ID } from '../../constants/menu';
 import { IMenuItemProps } from './menuItem';
+import MenuContext, { IMenuContext } from './menuContext';
 
-type MenuMode = 'vertical' | 'horizontal';
-type SelectCallback = (selectedIndex: string) => void;
+export type MenuMode = 'vertical' | 'horizontal';
+export type SelectCallback = (selectedIndex: string) => void;
 
 export interface IMenuProps {
   // 默认高亮项
@@ -28,17 +28,6 @@ export interface IMenuProps {
   // 默认展开项
   defaultOpenSubMenus?: string[];
 }
-
-interface IMenuContext {
-  index: string;
-  onSelect?: SelectCallback;
-  mode?: MenuMode;
-  defaultOpenSubMenus?: string[];
-}
-
-export const MenuContext = createContext<IMenuContext>({
-  index: '0'
-});
 
 const Menu: React.FC<PropsWithChildren<IMenuProps>> = props => {
   const {
