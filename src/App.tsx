@@ -28,7 +28,7 @@ function App() {
             <MenuItem>dropdown01</MenuItem>
             <MenuItem>dropdown02</MenuItem>
           </SubMenu>
-          <MenuItem>test004 test004 test004</MenuItem>
+          <MenuItem>test004</MenuItem>
           <SubMenu title="dropdown-04">
             <MenuItem>dropdown0401</MenuItem>
             <MenuItem>dropdown0402</MenuItem>
