@@ -1,2 +1,5 @@
 import Menu from './menu';
-export default Menu;
+import SubMenu from './subMenu';
+import MenuItem from './menuItem';
+
+export { SubMenu, MenuItem, Menu };

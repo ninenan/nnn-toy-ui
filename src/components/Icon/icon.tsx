@@ -1,7 +1,8 @@
 import React, { PropsWithChildren } from 'react';
 import classNames from 'classnames';
 import { library } from '@fortawesome/fontawesome-svg-core';
-import { fas } from '@fortawesome/free-solid-svg-icons'; // fas 表示 '@fortawesome/free-solid-svg-icons' 中所有的图标
+// fas 表示 '@fortawesome/free-solid-svg-icons' 中所有的图标
+import { fas } from '@fortawesome/free-solid-svg-icons';
 import {
   FontAwesomeIcon,
   FontAwesomeIconProps

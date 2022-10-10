@@ -1,5 +1,6 @@
 import React, { PropsWithChildren, useState, ReactNode } from 'react';
 import CSSTransition from 'react-transition-group/CSSTransition';
+import Transition from '../Transition';
 import classNames from 'classnames';
 import Icon from '../Icon';
 import { voidFnType } from '../../typings';
@@ -51,9 +52,9 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
   );
 
   return (
-    <CSSTransition
+    <Transition
       in={visable}
-      classNames="zoom-in-top"
+      animation="zoom-in-top"
       timeout={300}
       unmountOnExit
       appear
@@ -64,7 +65,7 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
         <p className="alert-message">{message}</p>
         {closable && <i onClick={handleCloseClick}>{customCloseEle}</i>}
       </div>
-    </CSSTransition>
+    </Transition>
   );
 };
 
