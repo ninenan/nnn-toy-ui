@@ -41,6 +41,7 @@ const SubMenu: FC<PropsWithChildren<ISubMenuProps>> = props => {
   };
 
   let timer: ReturnType<typeof setTimeout> | null = null;
+
   const handleMouse = (e: MouseEvent, toggle: boolean) => {
     if (timer) clearTimeout(timer);
     e.preventDefault();
@@ -66,7 +67,7 @@ const SubMenu: FC<PropsWithChildren<ISubMenuProps>> = props => {
 
   const renderChildren = () => {
     const subClasses = classNames('submenu', {
-      // 'menu-opened': isOpen
+      'menu-opened': isOpen
     });
     const childComponent = Children.map(children, (child, i) => {
       const childEl = child as FunctionComponentElement<IMenuItemProps>;

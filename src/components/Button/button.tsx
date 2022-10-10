@@ -4,6 +4,7 @@ import React, {
   ButtonHTMLAttributes,
   AnchorHTMLAttributes
 } from 'react';
+import { commonSize } from '../../typings';
 
 export type ButtonType =
   | 'primary'
@@ -13,7 +14,7 @@ export type ButtonType =
   | 'danger'
   | 'warning';
 
-export type ButtonSize = 'lg' | 'sm';
+export type ButtonSize = commonSize;
 
 interface IBaseButtonProps {
   size?: ButtonSize;

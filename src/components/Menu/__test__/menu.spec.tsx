@@ -7,10 +7,10 @@ import {
   RenderResult
 } from '@testing-library/react';
 
-import Menu, { IMenuProps } from './menu';
-import MenuItem from './menuItem';
-import SubMenu from './subMenu';
-import { TEST_MENU_ID } from '../../constants/menu';
+import Menu, { IMenuProps } from '../menu';
+import MenuItem from '../menuItem';
+import SubMenu from '../subMenu';
+import { TEST_MENU_ID } from '../../../constants/menu';
 
 const testProps: IMenuProps = {
   defaultIndex: '0',

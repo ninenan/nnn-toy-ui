@@ -1,5 +1,5 @@
 import React from 'react';
-import Button, { ButtonProps } from './button';
+import Button, { ButtonProps } from '../button';
 import { render, fireEvent } from '@testing-library/react';
 
 const defaultProps = {
