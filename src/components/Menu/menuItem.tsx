@@ -14,7 +14,7 @@ const MenuItem: FC<PropsWithChildren<IMenuItemProps>> = props => {
   const { children, index, disabled, className, style } = props;
   const context = useContext(MenuContext);
 
-  const clasess = classNames('menu-item', className, {
+  const classes = classNames('menu-item', className, {
     disabled: disabled,
     active: context.index === index
   });
@@ -26,7 +26,7 @@ const MenuItem: FC<PropsWithChildren<IMenuItemProps>> = props => {
   };
 
   return (
-    <li className={clasess} style={style} onClick={handleClick}>
+    <li className={classes} style={style} onClick={handleClick}>
       {children}
     </li>
   );

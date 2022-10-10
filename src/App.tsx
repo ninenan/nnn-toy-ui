@@ -12,7 +12,7 @@ function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <Icon icon="arrow-down" className="test-ok" size="6x" theme="warning" />
+        <Icon icon="arrows-alt" className="test-ok" size="6x" theme="warning" />
         <Alert
           message="message"
           type="default"

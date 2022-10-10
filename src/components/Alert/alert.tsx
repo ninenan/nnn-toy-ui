@@ -1,5 +1,4 @@
 import React, { PropsWithChildren, useState, ReactNode } from 'react';
-import CSSTransition from 'react-transition-group/CSSTransition';
 import Transition from '../Transition';
 import classNames from 'classnames';
 import Icon from '../Icon';
@@ -33,13 +32,13 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
   const { title, closable, onClose, type, customClose, message, afterClose } =
     props;
 
-  const [visable, setVisable] = useState(true);
-  const classess = classNames('alert', {
+  const [visible, setVisible] = useState(true);
+  const classes = classNames('alert', {
     [`alert-${type}`]: type
   });
 
   const handleCloseClick = () => {
-    setVisable(false);
+    setVisible(false);
     if (onClose) onClose();
   };
 
@@ -53,14 +52,14 @@ const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
 
   return (
     <Transition
-      in={visable}
+      in={visible}
       animation="zoom-in-top"
       timeout={300}
       unmountOnExit
       appear
       onExited={handleOnExtied}
     >
-      <div className={classess}>
+      <div className={classes}>
         {title && <h4 className="alert-title">{title}</h4>}
         <p className="alert-message">{message}</p>
         {closable && <i onClick={handleCloseClick}>{customCloseEle}</i>}

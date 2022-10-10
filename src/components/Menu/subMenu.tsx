@@ -65,7 +65,7 @@ const SubMenu: FC<PropsWithChildren<ISubMenuProps>> = props => {
       : {};
 
   const renderChildren = () => {
-    const subClassess = classNames('submenu', {
+    const subClasses = classNames('submenu', {
       // 'menu-opened': isOpen
     });
     const childComponent = Children.map(children, (child, i) => {
@@ -90,7 +90,7 @@ const SubMenu: FC<PropsWithChildren<ISubMenuProps>> = props => {
         appear
         unmountOnExit
       >
-        <ul className={subClassess}>{childComponent}</ul>
+        <ul className={subClasses}>{childComponent}</ul>
       </Transition>
     );
   };
