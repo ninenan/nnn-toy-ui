@@ -11,7 +11,7 @@ export type AlertType =
   | 'danger'
   | 'default';
 
-export interface AlertProps {
+export interface IAlertProps {
   // 标题
   title?: string;
   // 是否显示关闭按钮
@@ -28,7 +28,7 @@ export interface AlertProps {
   afterClose?: voidFnType;
 }
 
-const Alert: React.FC<PropsWithChildren<AlertProps>> = props => {
+const Alert: React.FC<PropsWithChildren<IAlertProps>> = props => {
   const { title, closable, onClose, type, customClose, message, afterClose } =
     props;
 

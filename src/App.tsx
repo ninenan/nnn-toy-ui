@@ -29,7 +29,7 @@ function App() {
           message="message"
           type="default"
           afterClose={() => console.log('test-afterClose')}
-        />
+        ></Alert>
         <Button size="lg" onClick={() => setShow(!show)}>
           toggle
         </Button>
