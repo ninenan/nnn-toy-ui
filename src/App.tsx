@@ -1,4 +1,4 @@
-import React, { ChangeEvent, MouseEvent, useState } from 'react';
+import React, { ChangeEvent, useState } from 'react';
 
 import './styles/index.scss';
 import Icon from './components/Icon';
@@ -85,7 +85,7 @@ function App() {
           className="test"
           prefix="https://"
           placeholder="basic usage"
-          suffix={<Icon icon={'magnifying-glass'} />}
+          icon="magnifying-glass"
           value={testValue}
           onChange={handleChange}
           onSearch={handleSearch}

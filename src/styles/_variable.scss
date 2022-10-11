@@ -287,10 +287,11 @@ $input-border-radius-lg: $border-radius-lg !default;
 $input-border-radius-sm: $border-radius-sm !default;
 
 $input-focus-bg: $input-bg !default;
-$input-focus-border-color: lighten($primary, 25%) !default;
+// $input-focus-border-color: lighten($primary, 25%) !default;
+$input-focus-border-color: lighten($primary, 15%) !default;
 $input-focus-width: 0.1rem !default;
 $input-focus-color: $input-color !default;
-$input-focus-shadow-color: rgba($primary, 0.25) !default;
+$input-focus-shadow-color: lighten($primary, 15%) !default;
 $input-focus-box-shadow: 0 0 0 $input-focus-width $input-focus-shadow-color !default;
 
 $input-placeholder-color: $gray-600 !default;

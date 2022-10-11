@@ -5,18 +5,19 @@
   position: relative;
   .icon-wrapper {
     position: absolute;
-    height: 100%;
-    width: 35px;
-    justify-content: center;
-    color: $input-color;
     right: 0;
     top: 0;
     display: flex;
     align-items: center;
+    justify-content: center;
+    height: 100%;
+    width: 35px;
+    color: $input-color;
+    z-index: 2;
+    cursor: pointer;
     svg {
       color: $input-placeholder-color;
     }
-    z-index: 2;
   }
 }
 .icon-wrapper + .input-inner {
