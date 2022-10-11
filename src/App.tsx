@@ -1,4 +1,4 @@
-import React, { useState } from 'react';
+import React, { ChangeEvent, MouseEvent, useState } from 'react';
 
 import './styles/index.scss';
 import Icon from './components/Icon';
@@ -6,11 +6,23 @@ import Button from './components/Button';
 import Alert from './components/Alert';
 import { MenuItem, SubMenu, Menu } from './components/Menu';
 import Transition from './components/Transition';
+import Input from './components/Input';
 
 function App() {
   const [show, setShow] = useState(true);
+  const [testValue, setTestValue] = useState<string | undefined>(undefined);
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setTestValue(e.currentTarget.value);
+    console.log(e.currentTarget.value);
+  };
+
+  const handleSearch = (value: string) => {
+    console.log('value :>> ', value);
+  };
+
   return (
-    <div className="App">
+    <div className="App" style={{ paddingLeft: '10px' }}>
       <header className="App-header">
         <Icon icon="arrows-alt" className="test-ok" size="6x" theme="warning" />
         <Alert
@@ -46,12 +58,13 @@ function App() {
           unmountOnExit
         >
           <div>
-            <p>文案111</p>
-            <p>文案111</p>
-            <p>文案111</p>
-            <p>文案111</p>
-            <p>文案111</p>
-            <p>文案111</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
+            <p>test 动画</p>
           </div>
         </Transition>
         <Transition
@@ -65,6 +78,18 @@ function App() {
             toggle
           </Button>
         </Transition>
+        <br />
+        <Input
+          type="text"
+          style={{ width: '300px' }}
+          className="test"
+          prefix="https://"
+          placeholder="basic usage"
+          suffix={<Icon icon={'magnifying-glass'} />}
+          value={testValue}
+          onChange={handleChange}
+          onSearch={handleSearch}
+        />
       </header>
     </div>
   );
