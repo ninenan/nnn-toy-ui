@@ -7,7 +7,19 @@ import Alert from './components/Alert';
 import { MenuItem, SubMenu, Menu } from './components/Menu';
 import Transition from './components/Transition';
 import Input from './components/Input';
-import AutoComplete from './components/AutoComplete/autoComplete';
+import AutoComplete, {
+  DataSourceType
+} from './components/AutoComplete/autoComplete';
+
+const testAutoCompleteData = [
+  { value: 'value01', id: 1 },
+  { value: 'value02', id: 2 },
+  { value: 'value03', id: 3 },
+  { value: 'value04', id: 4 },
+  { value: 'value05', id: 5 }
+];
+
+const testAutoCompleteData01 = ['apple', 'banana', 'origin', 'cat'];
 
 function App() {
   const [show, setShow] = useState(true);
@@ -23,7 +35,26 @@ function App() {
   };
 
   const handleFetch = (val: string) =>
-    ['apple', 'banana', 'origin', 'cat'].filter(item => item.includes(val));
+    testAutoCompleteData01
+      .filter(item => item.includes(val))
+      .map(item => {
+        return {
+          value: item
+        };
+      });
+
+  const handleFetchObjectData = (val: string) =>
+    testAutoCompleteData.filter(item => item.value.includes(val));
+
+  const renderOptions = (
+    item: DataSourceType<{ value: string; id: number }>
+  ) => {
+    return (
+      <div>
+        value:{item.value}, id: {item.id}
+      </div>
+    );
+  };
 
   return (
     <div className="App" style={{ paddingLeft: '10px' }}>
@@ -99,7 +130,7 @@ function App() {
         />
         {testValue}
         <br />
-        <AutoComplete fetchItem={handleFetch} />
+        <AutoComplete fetchItem={handleFetch} renderOptions={renderOptions} />
       </header>
     </div>
   );

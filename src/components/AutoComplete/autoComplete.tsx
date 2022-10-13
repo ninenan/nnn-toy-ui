@@ -1,14 +1,31 @@
-import React, { ChangeEvent, FC, PropsWithChildren, useState } from 'react';
+import React, {
+  ChangeEvent,
+  FC,
+  PropsWithChildren,
+  ReactElement,
+  useState
+} from 'react';
 import Input, { IInputProps } from '../Input';
 
+export type DataSourceType<T = any> = T & {
+  value: string;
+};
+
+const testDOO: DataSourceType<{ value: string; id: number }> = {
+  value: 'value01',
+  id: 2222
+};
+console.log(testDOO);
+
 export interface IAutoCompleteProps extends Omit<IInputProps, 'onSelect'> {
-  onSelect?: (item: string) => void;
-  fetchItem: (str: string) => string[];
+  onSelect?: (item: DataSourceType) => void;
+  fetchItem: (str: string) => DataSourceType[];
+  renderOptions?: (item: DataSourceType) => ReactElement;
 }
 
 const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
-  const { fetchItem, onSelect, value, ...restProps } = props;
-  const [options, setOptions] = useState<string[]>([]);
+  const { fetchItem, onSelect, value, renderOptions, ...restProps } = props;
+  const [options, setOptions] = useState<DataSourceType[]>([]);
 
   const [inputValue, setInputValue] = useState(value);
 
@@ -23,11 +40,26 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     }
   };
 
+  const handleSelect = (item: DataSourceType) => {
+    setInputValue(item.value);
+    setOptions([]);
+    if (onSelect) {
+      onSelect(item);
+    }
+  };
+
+  const renderTemplate = (item: DataSourceType) =>
+    renderOptions ? renderOptions(item) : item.value;
+
   const renderDropdown = () => {
     return (
       <ul>
         {options.map((item, index) => {
-          return <li key={index}>{item}</li>;
+          return (
+            <li key={index} onClick={() => handleSelect(item)}>
+              {renderTemplate(item)}
+            </li>
+          );
         })}
       </ul>
     );
