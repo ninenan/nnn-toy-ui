@@ -10,6 +10,7 @@ import Input from './components/Input';
 import AutoComplete, {
   DataSourceType
 } from './components/AutoComplete/autoComplete';
+import { sleep } from './help/utils';
 
 const testAutoCompleteData = [
   { value: 'value01', id: 1 },
@@ -46,12 +47,27 @@ function App() {
   const handleFetchObjectData = (val: string) =>
     testAutoCompleteData.filter(item => item.value.includes(val));
 
+  const handleFetchAsync = async (word: string) => {
+    await sleep(2000);
+    return fetch(
+      `http://dict.iciba.com/dictionary/word/suggestion?word=${word}&nums=5&ck=709a0db45332167b0e2ce1868b84773e&timestamp=1666015650621&client=6&uid=123123&key=1000006&is_need_mean=1&signature=cbd5ba78bb9c11875d035a1a3b15ab76`
+    )
+      .then(res => res.json())
+      .then(({ message }) => {
+        return message.map((item: any) => ({
+          value: item.key,
+          ...item
+        }));
+      });
+  };
+
   const renderOptions = (
-    item: DataSourceType<{ value: string; id: number }>
+    item: DataSourceType<{ value: string; paraphrase: string; key: string }>
   ) => {
+    console.log(item);
     return (
       <div>
-        value:{item.value}, id: {item.id}
+        key:{item.key}, id: {item.paraphrase}
       </div>
     );
   };
@@ -130,7 +146,10 @@ function App() {
         />
         {testValue}
         <br />
-        <AutoComplete fetchItem={handleFetch} renderOptions={renderOptions} />
+        <AutoComplete
+          fetcOptions={handleFetchAsync}
+          renderOptions={renderOptions}
+        />
       </header>
     </div>
   );
