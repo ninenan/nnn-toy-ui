@@ -10,7 +10,7 @@ import Input from './components/Input';
 import AutoComplete, {
   DataSourceType
 } from './components/AutoComplete/autoComplete';
-import { sleep } from './help/utils';
+import { sleep } from './helpers/utils';
 
 const testAutoCompleteData = [
   { value: 'value01', id: 1 },

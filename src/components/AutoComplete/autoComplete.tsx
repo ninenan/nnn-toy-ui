@@ -6,7 +6,7 @@ import React, {
   useState
 } from 'react';
 import Input, { IInputProps } from '../Input';
-import { isPromise } from '../../help/utils';
+import { isPromise } from '../../helpers/utils';
 import Icon from '../Icon';
 
 export type DataSourceType<T = any> = T & {
