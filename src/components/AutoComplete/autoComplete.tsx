@@ -3,11 +3,13 @@ import React, {
   FC,
   PropsWithChildren,
   ReactElement,
-  useState
+  useState,
+  useEffect
 } from 'react';
 import Input, { IInputProps } from '../Input';
 import { isPromise } from '../../helpers/utils';
 import Icon from '../Icon';
+import useDebounce from '../../hooks/useDebounce';
 
 export type DataSourceType<T = any> = T & {
   value: string;
@@ -15,34 +17,41 @@ export type DataSourceType<T = any> = T & {
 
 export interface IAutoCompleteProps extends Omit<IInputProps, 'onSelect'> {
   onSelect?: (item: DataSourceType) => void; // select 事件
-  fetcOptions: (str: string) => DataSourceType[] | Promise<DataSourceType>; // 获取 options
+  fetchOptions: (str: string) => DataSourceType[] | Promise<DataSourceType>; // 获取 options
   renderOptions?: (item: DataSourceType) => ReactElement; // 渲染 options 数据
 }
 
 const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
-  const { fetcOptions, onSelect, value, renderOptions, ...restProps } = props;
+  const { fetchOptions, onSelect, value, renderOptions, ...restProps } = props;
   const [options, setOptions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
-
-  const [inputValue, setInputValue] = useState(value);
+  const [inputValue, setInputValue] = useState(value as string);
+  const debounceValue = useDebounce<string>(inputValue, 500);
 
   const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setInputValue(value);
-    if (value) {
-      const resFn = fetcOptions(value);
-      if (isPromise<DataSourceType>(resFn)) {
-        setLoading(true);
-        const result = await resFn;
-        setLoading(false);
-        setOptions(result);
-      } else {
-        setOptions(resFn);
-      }
-    } else {
-      setOptions([]);
-    }
   };
+
+  useEffect(() => {
+    const getOptions = async () => {
+      if (debounceValue) {
+        const resFn = fetchOptions(debounceValue);
+        if (isPromise<DataSourceType>(resFn)) {
+          setLoading(true);
+          const result = await resFn;
+          setLoading(false);
+          setOptions(result);
+        } else {
+          setOptions(resFn);
+        }
+      } else {
+        setOptions([]);
+      }
+    };
+
+    getOptions();
+  }, [debounceValue]);
 
   const handleSelect = (item: DataSourceType) => {
     setInputValue(item.value);

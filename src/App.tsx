@@ -147,7 +147,7 @@ function App() {
         {testValue}
         <br />
         <AutoComplete
-          fetcOptions={handleFetchAsync}
+          fetchOptions={handleFetchAsync}
           renderOptions={renderOptions}
         />
       </header>
