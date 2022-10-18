@@ -28,7 +28,6 @@ function App() {
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTestValue(e.currentTarget.value);
-    console.log(e);
   };
 
   const handleSearch = (value: string) => {
@@ -55,8 +54,8 @@ function App() {
       .then(res => res.json())
       .then(({ message }) => {
         return message.map((item: any) => ({
-          value: item.key,
-          ...item
+          ...item,
+          value: item.key
         }));
       });
   };
@@ -64,7 +63,7 @@ function App() {
   const renderOptions = (
     item: DataSourceType<{ value: string; paraphrase: string; key: string }>
   ) => {
-    console.log(item);
+    // console.log(item);
     return (
       <div>
         key:{item.key}, id: {item.paraphrase}

@@ -3,6 +3,7 @@ import React, {
   FC,
   PropsWithChildren,
   ReactElement,
+  KeyboardEvent,
   useState,
   useEffect
 } from 'react';
@@ -10,6 +11,7 @@ import Input, { IInputProps } from '../Input';
 import { isPromise } from '../../helpers/utils';
 import Icon from '../Icon';
 import useDebounce from '../../hooks/useDebounce';
+import classNames from 'classnames';
 
 export type DataSourceType<T = any> = T & {
   value: string;
@@ -26,15 +28,45 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
   const [options, setOptions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState(value as string);
+  const [hightlightIndex, setHightlightIndex] = useState(0);
   const debounceValue = useDebounce<string>(inputValue, 500);
 
-  const handleChange = async (e: ChangeEvent<HTMLInputElement>) => {
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setInputValue(value);
   };
 
+  const handleHighlight = (index: number) => {
+    if (index < 0) index = 0;
+    if (index > options.length) index = options.length - 1;
+
+    console.log('index', index);
+    setHightlightIndex(index);
+  };
+
+  const handlleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
+    const { keyCode } = e;
+    switch (keyCode) {
+      case 13:
+        options[hightlightIndex] && handleSelect(options[hightlightIndex]);
+        break;
+      case 38:
+        handleHighlight(hightlightIndex - 1);
+        break;
+      case 40:
+        handleHighlight(hightlightIndex + 1);
+        break;
+      case 27:
+        setOptions([]);
+        break;
+      default:
+        break;
+    }
+  };
+
   useEffect(() => {
     const getOptions = async () => {
+      console.log('test');
       if (debounceValue) {
         const resFn = fetchOptions(debounceValue);
         if (isPromise<DataSourceType>(resFn)) {
@@ -51,6 +83,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     };
 
     getOptions();
+    setHightlightIndex(-1);
   }, [debounceValue]);
 
   const handleSelect = (item: DataSourceType) => {
@@ -66,10 +99,17 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
 
   const renderDropdown = () => {
     return (
-      <ul>
+      <ul className="options-list">
         {options.map((item, index) => {
+          const classes = classNames('options-item', {
+            active: index === hightlightIndex
+          });
           return (
-            <li key={index} onClick={() => handleSelect(item)}>
+            <li
+              key={index}
+              className={classes}
+              onClick={() => handleSelect(item)}
+            >
               {renderTemplate(item)}
             </li>
           );
@@ -80,7 +120,12 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
 
   return (
     <div className="toy-auto-complete">
-      <Input value={inputValue} onChange={handleChange} {...restProps} />
+      <Input
+        value={inputValue}
+        onChange={handleChange}
+        {...restProps}
+        onKeyDown={handlleKeyDown}
+      />
       {loading && (
         <ul>
           <Icon icon="spinner" spin />
