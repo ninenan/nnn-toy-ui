@@ -10,7 +10,7 @@ import Input from './components/Input';
 import AutoComplete, {
   DataSourceType
 } from './components/AutoComplete/autoComplete';
-import { sleep } from './helpers/utils';
+// import { sleep } from './helpers/utils';
 
 /* const testAutoCompleteData = [
   { value: 'value01', id: 1 },
@@ -47,7 +47,7 @@ function App() {
     testAutoCompleteData.filter(item => item.value.includes(val)); */
 
   const handleFetchAsync = async (word: string) => {
-    await sleep(2000);
+    // await sleep(2000);
     return fetch(
       `http://dict.iciba.com/dictionary/word/suggestion?word=${word}&nums=5&ck=709a0db45332167b0e2ce1868b84773e&timestamp=1666015650621&client=6&uid=123123&key=1000006&is_need_mean=1&signature=cbd5ba78bb9c11875d035a1a3b15ab76`
     )
@@ -149,6 +149,7 @@ function App() {
           fetchOptions={handleFetchAsync}
           renderOptions={renderOptions}
         />
+        <div>c恶事问啊</div>
       </header>
     </div>
   );

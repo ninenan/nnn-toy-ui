@@ -10,6 +10,7 @@ import React, {
 } from 'react';
 import classNames from 'classnames';
 import Input, { IInputProps } from '../Input';
+import Transition from '../Transition';
 import { isPromise } from '../../helpers/utils';
 import Icon from '../Icon';
 import useDebounce from '../../hooks/useDebounce';
@@ -31,10 +32,14 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState(value as string);
   const [hightlightIndex, setHightlightIndex] = useState(0);
+  const [showDropDown, setShowDropDown] = useState(false);
   const triggerSearch = useRef(false);
   const autoCompleteComRef = useRef<HTMLDivElement>(null);
   const debounceValue = useDebounce<string>(inputValue, 500);
-  useClickOutside(autoCompleteComRef, () => setOptions([]));
+  useClickOutside(autoCompleteComRef, () => {
+    setShowDropDown(false);
+    setOptions([]);
+  });
 
   /**
    * 输入框改变事件
@@ -54,6 +59,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
    */
   const handleSelect = (currentItem: DataSourceType) => {
     setInputValue(currentItem.value);
+    setShowDropDown(false);
     setOptions([]);
     if (onSelect) {
       onSelect(currentItem);
@@ -92,6 +98,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
         break;
       case 'Escape':
         setOptions([]);
+        setShowDropDown(false);
         break;
       default:
         break;
@@ -108,22 +115,34 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
 
   const renderDropdown = () => {
     return (
-      <ul className="options-list">
-        {options.map((item, index) => {
-          const classes = classNames('options-item', {
-            active: index === hightlightIndex
-          });
-          return (
-            <li
-              key={index}
-              className={classes}
-              onClick={() => handleSelect(item)}
-            >
-              {renderTemplate(item)}
-            </li>
-          );
-        })}
-      </ul>
+      <Transition
+        in={loading || showDropDown}
+        timeout={300}
+        animation="zoom-in-top"
+        onExited={() => setOptions([])}
+      >
+        <ul className="options-list">
+          {loading && (
+            <div className="options-loading-icon">
+              <Icon icon="spinner" spin />
+            </div>
+          )}
+          {options.map((item, index) => {
+            const classes = classNames('options-item', {
+              active: index === hightlightIndex
+            });
+            return (
+              <li
+                key={index}
+                className={classes}
+                onClick={() => handleSelect(item)}
+              >
+                {renderTemplate(item)}
+              </li>
+            );
+          })}
+        </ul>
+      </Transition>
     );
   };
 
@@ -131,6 +150,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     const getOptions = async () => {
       if (debounceValue && triggerSearch.current) {
         const resFn = fetchOptions(debounceValue);
+        setShowDropDown(true);
         if (isPromise<DataSourceType>(resFn)) {
           setLoading(true);
           const result = await resFn;
@@ -141,6 +161,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
         }
       } else {
         setOptions([]);
+        setShowDropDown(false);
       }
     };
 
@@ -156,12 +177,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
         {...restProps}
         onKeyDown={handlleKeyDown}
       />
-      {loading && (
-        <ul>
-          <Icon icon="spinner" spin />
-        </ul>
-      )}
-      {options.length > 0 && !loading && renderDropdown()}
+      {renderDropdown()}
     </div>
   );
 };

@@ -2,17 +2,17 @@
   position: relative;
 }
 .options-list {
-  list-style: none;
-  padding-left: 0;
-  white-space: nowrap;
   position: absolute;
-  background: $white;
   z-index: 100;
-  top: calc(100% + 8px);
+  top: calc(100% + 4px);
   left: 0;
-  border: $menu-border-width solid $menu-border-color;
-  box-shadow: $submenu-box-shadow;
   width: 100%;
+  // border: $menu-border-width solid $menu-border-color;
+  // box-shadow: $submenu-box-shadow;
+  padding-left: 0;
+  list-style: none;
+  white-space: nowrap;
+  background: $white;
   .options-loading-icon {
     display: flex;
     align-items: center;
@@ -32,4 +32,8 @@
       color: $menu-item-active-color !important;
     }
   }
+}
+.zoom-in-top-enter-done.options-list {
+  border: $menu-border-width solid $menu-border-color;
+  box-shadow: $submenu-box-shadow;
 }
