@@ -7,9 +7,8 @@ import Alert from './components/Alert';
 import { MenuItem, SubMenu, Menu } from './components/Menu';
 import Transition from './components/Transition';
 import Input from './components/Input';
-import AutoComplete, {
-  DataSourceType
-} from './components/AutoComplete/autoComplete';
+import AutoComplete from './components/AutoComplete';
+import type { DataSourceType } from './components/AutoComplete/autoComplete';
 // import { sleep } from './helpers/utils';
 
 /* const testAutoCompleteData = [
@@ -63,7 +62,6 @@ function App() {
   const renderOptions = (
     item: DataSourceType<{ value: string; paraphrase: string; key: string }>
   ) => {
-    // console.log(item);
     return (
       <div>
         key:{item.key}, id: {item.paraphrase}
