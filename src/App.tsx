@@ -23,7 +23,7 @@ const testAutoCompleteData01 = ['apple', 'banana', 'origin', 'cat']; */
 
 function App() {
   const [show, setShow] = useState(true);
-  const [testValue, setTestValue] = useState<string | undefined>(undefined);
+  const [testValue, setTestValue] = useState<string | undefined>('testvlaue');
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     setTestValue(e.currentTarget.value);
@@ -147,7 +147,7 @@ function App() {
           fetchOptions={handleFetchAsync}
           renderOptions={renderOptions}
         />
-        <div>c恶事问啊</div>
+        <div>test content</div>
       </header>
     </div>
   );

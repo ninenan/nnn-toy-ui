@@ -11,9 +11,9 @@ import AutoComplete, {
   DataSourceType,
   IAutoCompleteProps
 } from '../autoComplete';
-import { wrap } from 'module';
 
 // 设置了之后动画不会执行
+// 执行测试用例的时候需要用到
 config.disabled = true;
 
 const testArr = [
