@@ -5,13 +5,15 @@ import React, {
   ReactElement,
   KeyboardEvent,
   useState,
-  useEffect
+  useEffect,
+  useRef
 } from 'react';
+import classNames from 'classnames';
 import Input, { IInputProps } from '../Input';
 import { isPromise } from '../../helpers/utils';
 import Icon from '../Icon';
 import useDebounce from '../../hooks/useDebounce';
-import classNames from 'classnames';
+import useClickOutside from '../../hooks/useClickOutside';
 
 export type DataSourceType<T = any> = T & {
   value: string;
@@ -29,34 +31,66 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState(value as string);
   const [hightlightIndex, setHightlightIndex] = useState(0);
+  const triggerSearch = useRef(false);
+  const autoCompleteComRef = useRef<HTMLDivElement>(null);
   const debounceValue = useDebounce<string>(inputValue, 500);
+  useClickOutside(autoCompleteComRef, () => setOptions([]));
 
+  /**
+   * 输入框改变事件
+   *
+   * @param {ChangeEvent<HTMLInputElement>} e - 当前值
+   */
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const value = e.currentTarget.value;
     setInputValue(value);
+    triggerSearch.current = true;
   };
 
+  /**
+   * 下拉项选择事件
+   *
+   * @param {DataSourceType} currentItem - 选中的项
+   */
+  const handleSelect = (currentItem: DataSourceType) => {
+    setInputValue(currentItem.value);
+    setOptions([]);
+    if (onSelect) {
+      onSelect(currentItem);
+    }
+    triggerSearch.current = false;
+  };
+
+  /**
+   * 设置高亮
+   *
+   * @param {number} index - 下标
+   */
   const handleHighlight = (index: number) => {
     if (index < 0) index = 0;
-    if (index > options.length) index = options.length - 1;
+    if (index >= options.length) index = options.length - 1;
 
-    console.log('index', index);
     setHightlightIndex(index);
   };
 
+  /**
+   * 键盘事件
+   *
+   * @param {KeyboardEvent<HTMLInputElement>} e - 键盘事件
+   */
   const handlleKeyDown = (e: KeyboardEvent<HTMLInputElement>) => {
-    const { keyCode } = e;
-    switch (keyCode) {
-      case 13:
+    const { code } = e;
+    switch (code) {
+      case 'Enter':
         options[hightlightIndex] && handleSelect(options[hightlightIndex]);
         break;
-      case 38:
+      case 'ArrowUp':
         handleHighlight(hightlightIndex - 1);
         break;
-      case 40:
+      case 'ArrowDown':
         handleHighlight(hightlightIndex + 1);
         break;
-      case 27:
+      case 'Escape':
         setOptions([]);
         break;
       default:
@@ -64,36 +98,11 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     }
   };
 
-  useEffect(() => {
-    const getOptions = async () => {
-      console.log('test');
-      if (debounceValue) {
-        const resFn = fetchOptions(debounceValue);
-        if (isPromise<DataSourceType>(resFn)) {
-          setLoading(true);
-          const result = await resFn;
-          setLoading(false);
-          setOptions(result);
-        } else {
-          setOptions(resFn);
-        }
-      } else {
-        setOptions([]);
-      }
-    };
-
-    getOptions();
-    setHightlightIndex(-1);
-  }, [debounceValue]);
-
-  const handleSelect = (item: DataSourceType) => {
-    setInputValue(item.value);
-    setOptions([]);
-    if (onSelect) {
-      onSelect(item);
-    }
-  };
-
+  /**
+   * 渲染下拉中的每一项内容
+   *
+   * @param {DataSourceType} item - 下拉选项中的每一项
+   */
   const renderTemplate = (item: DataSourceType) =>
     renderOptions ? renderOptions(item) : item.value;
 
@@ -118,8 +127,29 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     );
   };
 
+  useEffect(() => {
+    const getOptions = async () => {
+      if (debounceValue && triggerSearch.current) {
+        const resFn = fetchOptions(debounceValue);
+        if (isPromise<DataSourceType>(resFn)) {
+          setLoading(true);
+          const result = await resFn;
+          setLoading(false);
+          setOptions(result);
+        } else {
+          setOptions(resFn);
+        }
+      } else {
+        setOptions([]);
+      }
+    };
+
+    getOptions();
+    setHightlightIndex(-1);
+  }, [debounceValue, fetchOptions]);
+
   return (
-    <div className="toy-auto-complete">
+    <div className="toy-auto-complete" ref={autoCompleteComRef}>
       <Input
         value={inputValue}
         onChange={handleChange}
@@ -131,7 +161,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
           <Icon icon="spinner" spin />
         </ul>
       )}
-      {options.length > 0 && renderDropdown()}
+      {options.length > 0 && !loading && renderDropdown()}
     </div>
   );
 };

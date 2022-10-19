@@ -12,7 +12,7 @@ import AutoComplete, {
 } from './components/AutoComplete/autoComplete';
 import { sleep } from './helpers/utils';
 
-const testAutoCompleteData = [
+/* const testAutoCompleteData = [
   { value: 'value01', id: 1 },
   { value: 'value02', id: 2 },
   { value: 'value03', id: 3 },
@@ -20,7 +20,7 @@ const testAutoCompleteData = [
   { value: 'value05', id: 5 }
 ];
 
-const testAutoCompleteData01 = ['apple', 'banana', 'origin', 'cat'];
+const testAutoCompleteData01 = ['apple', 'banana', 'origin', 'cat']; */
 
 function App() {
   const [show, setShow] = useState(true);
@@ -34,7 +34,7 @@ function App() {
     console.log('value :>> ', value);
   };
 
-  const handleFetch = (val: string) =>
+  /* const handleFetch = (val: string) =>
     testAutoCompleteData01
       .filter(item => item.includes(val))
       .map(item => {
@@ -44,7 +44,7 @@ function App() {
       });
 
   const handleFetchObjectData = (val: string) =>
-    testAutoCompleteData.filter(item => item.value.includes(val));
+    testAutoCompleteData.filter(item => item.value.includes(val)); */
 
   const handleFetchAsync = async (word: string) => {
     await sleep(2000);
