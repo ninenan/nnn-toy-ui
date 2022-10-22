@@ -9,17 +9,6 @@ import Transition from './components/Transition';
 import Input from './components/Input';
 import AutoComplete from './components/AutoComplete';
 import type { DataSourceType } from './components/AutoComplete/autoComplete';
-// import { sleep } from './helpers/utils';
-
-/* const testAutoCompleteData = [
-  { value: 'value01', id: 1 },
-  { value: 'value02', id: 2 },
-  { value: 'value03', id: 3 },
-  { value: 'value04', id: 4 },
-  { value: 'value05', id: 5 }
-];
-
-const testAutoCompleteData01 = ['apple', 'banana', 'origin', 'cat']; */
 
 function App() {
   const [show, setShow] = useState(true);
@@ -33,20 +22,7 @@ function App() {
     console.log('value :>> ', value);
   };
 
-  /* const handleFetch = (val: string) =>
-    testAutoCompleteData01
-      .filter(item => item.includes(val))
-      .map(item => {
-        return {
-          value: item
-        };
-      });
-
-  const handleFetchObjectData = (val: string) =>
-    testAutoCompleteData.filter(item => item.value.includes(val)); */
-
   const handleFetchAsync = async (word: string) => {
-    // await sleep(2000);
     return fetch(
       `http://dict.iciba.com/dictionary/word/suggestion?word=${word}&nums=5&ck=709a0db45332167b0e2ce1868b84773e&timestamp=1666015650621&client=6&uid=123123&key=1000006&is_need_mean=1&signature=cbd5ba78bb9c11875d035a1a3b15ab76`
     )
