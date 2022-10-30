@@ -1,7 +1,9 @@
 export const isFunction = (val: unknown): val is () => void =>
   typeof val === 'function';
 
-export const isObject = (val: unknown): val is Record<any, unknown> =>
+export const isObject = (
+  val: unknown
+): val is Record<string | number | symbol, unknown> =>
   val !== null && typeof val === 'object';
 
 export const isPromise = <T = unknown>(params: unknown): params is Promise<T> =>

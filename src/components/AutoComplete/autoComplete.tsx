@@ -1,20 +1,20 @@
-import React, {
+import classNames from 'classnames';
+import {
   ChangeEvent,
   FC,
+  KeyboardEvent,
   PropsWithChildren,
   ReactElement,
-  KeyboardEvent,
-  useState,
   useEffect,
-  useRef
+  useRef,
+  useState
 } from 'react';
-import classNames from 'classnames';
+import { isPromise } from '../../helpers/utils';
+import useClickOutside from '../../hooks/useClickOutside';
+import useDebounce from '../../hooks/useDebounce';
+import Icon from '../Icon';
 import Input, { IInputProps } from '../Input';
 import Transition from '../Transition';
-import { isPromise } from '../../helpers/utils';
-import Icon from '../Icon';
-import useDebounce from '../../hooks/useDebounce';
-import useClickOutside from '../../hooks/useClickOutside';
 
 export type DataSourceType<T = any> = T & {
   value: string;
