@@ -1,14 +1,15 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import './styles/index.scss';
-import Icon from './components/Icon';
-import Button from './components/Button';
 import Alert from './components/Alert';
-import { MenuItem, SubMenu, Menu } from './components/Menu';
-import Transition from './components/Transition';
-import Input from './components/Input';
 import AutoComplete from './components/AutoComplete';
 import type { DataSourceType } from './components/AutoComplete/autoComplete';
+import Button from './components/Button';
+import Icon from './components/Icon';
+import Input from './components/Input';
+import { Menu, MenuItem, SubMenu } from './components/Menu';
+import Transition from './components/Transition';
+import Upload from './components/Upload';
+import './styles/index.scss';
 
 function App() {
   const [show, setShow] = useState(true);
@@ -124,6 +125,7 @@ function App() {
           renderOptions={renderOptions}
         />
         <div>test content</div>
+        <Upload />
       </header>
     </div>
   );

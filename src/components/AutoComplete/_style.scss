@@ -22,12 +22,12 @@
     cursor: pointer;
     transition: $menu-transition;
     color: $body-color;
-    &.active {
-      background: $menu-item-active-color !important;
-      color: $white !important;
-    }
     &:hover {
-      color: $menu-item-active-color !important;
+      color: $menu-item-active-color;
+    }
+    &.active {
+      background: $menu-item-active-color;
+      color: $white;
     }
   }
 }

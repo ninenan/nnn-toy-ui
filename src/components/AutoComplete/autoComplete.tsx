@@ -31,7 +31,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
   const [options, setOptions] = useState<DataSourceType[]>([]);
   const [loading, setLoading] = useState(false);
   const [inputValue, setInputValue] = useState(value as string);
-  const [hightlightIndex, setHightlightIndex] = useState(0);
+  const [highlightIndex, setHighlightIndex] = useState(0);
   const [showDropDown, setShowDropDown] = useState(false);
   const triggerSearch = useRef(false);
   const autoCompleteComRef = useRef<HTMLDivElement>(null);
@@ -76,7 +76,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     if (index < 0) index = 0;
     if (index >= options.length) index = options.length - 1;
 
-    setHightlightIndex(index);
+    setHighlightIndex(index);
   };
 
   /**
@@ -88,13 +88,13 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     const { code } = e;
     switch (code) {
       case 'Enter':
-        options[hightlightIndex] && handleSelect(options[hightlightIndex]);
+        options[highlightIndex] && handleSelect(options[highlightIndex]);
         break;
       case 'ArrowUp':
-        handleHighlight(hightlightIndex - 1);
+        handleHighlight(highlightIndex - 1);
         break;
       case 'ArrowDown':
-        handleHighlight(hightlightIndex + 1);
+        handleHighlight(highlightIndex + 1);
         break;
       case 'Escape':
         setOptions([]);
@@ -129,7 +129,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
           )}
           {options.map((item, index) => {
             const classes = classNames('options-item', {
-              active: index === hightlightIndex
+              active: index === highlightIndex
             });
             return (
               <li
@@ -166,7 +166,7 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
     };
 
     getOptions();
-    setHightlightIndex(-1);
+    setHighlightIndex(-1);
   }, [debounceValue, fetchOptions]);
 
   return (
