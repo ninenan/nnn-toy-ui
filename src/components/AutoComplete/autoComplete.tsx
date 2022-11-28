@@ -182,4 +182,4 @@ const AutoComplete: FC<PropsWithChildren<IAutoCompleteProps>> = props => {
   );
 };
 
-export default AutoComplete;
+export default React.memo(AutoComplete);

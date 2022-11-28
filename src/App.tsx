@@ -125,7 +125,7 @@ function App() {
           renderOptions={renderOptions}
         />
         <div>test content</div>
-        <Upload />
+        <Upload action="https://jsonplaceholder.typicode.com/posts/" />
       </header>
     </div>
   );
