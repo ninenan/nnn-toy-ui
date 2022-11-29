@@ -16,6 +16,7 @@ export interface IUploadProps {
   defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onChange?: (file: File) => void;
+  onRemove?: (file: UploadFile) => void; // 删除事件
   onProgress?: (percentage: number, file: File) => void; // 上传进度回调事件
   onSuccess?: (data: unknown, file: File) => void; // 成功回调事件
   onError?: (data: unknown, file: File) => void; // 失败回调事件
@@ -34,12 +35,6 @@ export interface UploadFile {
   error?: unknown;
 }
 
-const fileListMock: UploadFile[] = [
-  { uid: '1', size: 1233, name: 'hello.js', status: 'loading', percent: 30 },
-  { uid: '2', size: 1234, name: 'hello.md', status: 'success', percent: 100 },
-  { uid: '3', size: 1235, name: 'error.md', status: 'fail', percent: 0 }
-];
-
 const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   const {
     action,
@@ -49,21 +44,13 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     onError,
     onSuccess,
     onProgress,
-    onChange
+    onChange,
+    onRemove
   } = props;
   const fileEl = useRef<HTMLInputElement>(null);
   const [fileList, setFileList] = useState<UploadFile[]>(
     defaultUploadFileList || []
   );
-
-  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const files = e.target.files;
-    if (!files) return;
-    uploadFile(files);
-    if (fileEl.current) {
-      fileEl.current.value = '';
-    }
-  };
 
   const uploadFile = (files: FileList) => {
     const postFiles = [...files];
@@ -160,6 +147,25 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
         }
       });
   };
+
+  const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
+    const files = e.target.files;
+    if (!files) return;
+    uploadFile(files);
+    if (fileEl.current) {
+      fileEl.current.value = '';
+    }
+  };
+
+  const handleRemove = (file: UploadFile) => {
+    setFileList(prevList => {
+      return prevList.filter(item => item.uid !== file.uid);
+    });
+    if (onRemove) {
+      onRemove(file);
+    }
+  };
+
   /**
    * 触发 file 点击事件
    *
