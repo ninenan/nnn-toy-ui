@@ -11,3 +11,7 @@ export const isPromise = <T = unknown>(params: unknown): params is Promise<T> =>
 
 export const sleep = (time: number): Promise<void> =>
   new Promise(resolve => setTimeout(resolve, time));
+
+export const NOOP = () => {
+  // do nothing
+};

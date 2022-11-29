@@ -1,11 +1,19 @@
 import axios from 'axios';
-import React, { ChangeEvent, FC, PropsWithChildren, useRef } from 'react';
-import { isPromise } from 'util/types';
+import React, {
+  ChangeEvent,
+  FC,
+  PropsWithChildren,
+  useRef,
+  useState
+} from 'react';
+import { isPromise } from '../../helpers/utils';
 import Button from '../Button';
+import UploadList from './UploadList';
 
 export interface IUploadProps {
   action: string; // 上传接口
   headers?: Record<string, unknown>; // 请求头
+  defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onChange?: (file: File) => void;
   onProgress?: (percentage: number, file: File) => void; // 上传进度回调事件
@@ -13,10 +21,30 @@ export interface IUploadProps {
   onError?: (data: unknown, file: File) => void; // 失败回调事件
 }
 
+export type UploadFileStatus = 'ready' | 'loading' | 'success' | 'fail';
+
+export interface UploadFile {
+  uid: string;
+  size: number;
+  name: string;
+  status?: UploadFileStatus;
+  percent?: number;
+  source?: File;
+  response?: unknown;
+  error?: unknown;
+}
+
+const fileListMock: UploadFile[] = [
+  { uid: '1', size: 1233, name: 'hello.js', status: 'loading', percent: 30 },
+  { uid: '2', size: 1234, name: 'hello.md', status: 'success', percent: 100 },
+  { uid: '3', size: 1235, name: 'error.md', status: 'fail', percent: 0 }
+];
+
 const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   const {
     action,
     headers,
+    defaultUploadFileList,
     beforeUpload,
     onError,
     onSuccess,
@@ -24,6 +52,9 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     onChange
   } = props;
   const fileEl = useRef<HTMLInputElement>(null);
+  const [fileList, setFileList] = useState<UploadFile[]>(
+    defaultUploadFileList || []
+  );
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
@@ -54,7 +85,35 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     });
   };
 
+  const updateFileList = (
+    updateFile: UploadFile,
+    updateObj: Partial<UploadFile>
+  ) => {
+    setFileList(prevList => {
+      return prevList.map(item => {
+        if (item.uid === updateFile.uid) {
+          return {
+            ...item,
+            ...updateObj
+          };
+        } else {
+          return item;
+        }
+      });
+    });
+  };
+
   const toUpload = (file: File) => {
+    const currentFile: UploadFile = {
+      uid: Date.now() + '',
+      status: 'ready',
+      name: file.name,
+      size: file.size,
+      percent: 0,
+      source: file
+    };
+    setFileList([currentFile, ...fileList]);
+
     const formData = new FormData();
     formData.append(file.name, file);
 
@@ -70,6 +129,10 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
             percentage = Math.round((e.loaded * 100) / e.total) || 0;
           }
           if (percentage <= 100) {
+            updateFileList(currentFile, {
+              percent: percentage,
+              status: 'loading'
+            });
             if (onProgress) {
               onProgress(percentage, file);
             }
@@ -78,6 +141,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
       })
       .then(resp => {
         console.log('resp', resp);
+        updateFileList(currentFile, { status: 'success', response: resp.data });
         if (onSuccess) {
           onSuccess(resp, file);
         }
@@ -87,6 +151,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
       })
       .catch(err => {
         console.error(err);
+        updateFileList(currentFile, { status: 'fail', error: err });
         if (onError) {
           onError(err, file);
         }
@@ -117,6 +182,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
         name="myFile"
         onChange={handleFileChange}
       />
+      <UploadList fileList={fileList}></UploadList>
     </div>
   );
 };

@@ -8,8 +8,15 @@ import Icon from './components/Icon';
 import Input from './components/Input';
 import { Menu, MenuItem, SubMenu } from './components/Menu';
 import Transition from './components/Transition';
+import type { UploadFile } from './components/Upload';
 import Upload from './components/Upload';
 import './styles/index.scss';
+
+const fileListMock: UploadFile[] = [
+  { uid: '1', size: 1233, name: 'hello.js', status: 'loading', percent: 30 },
+  { uid: '2', size: 1234, name: 'hello.md', status: 'success', percent: 100 },
+  { uid: '3', size: 1235, name: 'error.md', status: 'fail', percent: 0 }
+];
 
 function App() {
   const [show, setShow] = useState(true);
@@ -125,7 +132,10 @@ function App() {
           renderOptions={renderOptions}
         />
         <div>test content</div>
-        <Upload action="https://jsonplaceholder.typicode.com/posts/" />
+        <Upload
+          action="https://jsonplaceholder.typicode.com/posts/"
+          defaultUploadFileList={fileListMock}
+        />
       </header>
     </div>
   );
