@@ -188,7 +188,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
         name="myFile"
         onChange={handleFileChange}
       />
-      <UploadList fileList={fileList}></UploadList>
+      <UploadList fileList={fileList} onRemove={handleRemove}></UploadList>
     </div>
   );
 };
