@@ -31,9 +31,9 @@ export interface IMenuProps {
 
 const Menu: React.FC<PropsWithChildren<IMenuProps>> = props => {
   const {
-    defaultIndex,
+    defaultIndex = '0',
     className,
-    mode,
+    mode = 'horizontal',
     style,
     onSelect,
     children,
@@ -82,11 +82,6 @@ const Menu: React.FC<PropsWithChildren<IMenuProps>> = props => {
       </MenuContext.Provider>
     </ul>
   );
-};
-
-Menu.defaultProps = {
-  defaultIndex: '0',
-  mode: 'horizontal'
 };
 
 export default Menu;

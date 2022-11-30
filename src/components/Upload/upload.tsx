@@ -6,13 +6,18 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { isPromise } from '../../helpers/utils';
+import { isPromise, NOOP } from '../../helpers/utils';
 import Button from '../Button';
 import UploadList from './UploadList';
 
 export interface IUploadProps {
   action: string; // 上传接口
   headers?: Record<string, unknown>; // 请求头
+  data?: Record<string, string>; // 请求扩展参数
+  name?: string; // 自定义上传名
+  withCredentials?: boolean; // 是否允许携带 cookie
+  accept?: string;
+  multiple?: boolean;
   defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onChange?: (file: File) => void;
@@ -20,6 +25,7 @@ export interface IUploadProps {
   onProgress?: (percentage: number, file: File) => void; // 上传进度回调事件
   onSuccess?: (data: unknown, file: File) => void; // 成功回调事件
   onError?: (data: unknown, file: File) => void; // 失败回调事件
+  onPreview?: (file: UploadFile) => void; // 上传成功文件操作事件
 }
 
 export type UploadFileStatus = 'ready' | 'loading' | 'success' | 'fail';
@@ -39,13 +45,19 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   const {
     action,
     headers,
+    name = 'file',
+    data,
+    withCredentials,
+    accept,
+    multiple,
     defaultUploadFileList,
     beforeUpload,
     onError,
     onSuccess,
     onProgress,
     onChange,
-    onRemove
+    onRemove,
+    onPreview
   } = props;
   const fileEl = useRef<HTMLInputElement>(null);
   const [fileList, setFileList] = useState<UploadFile[]>(
@@ -99,10 +111,15 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
       percent: 0,
       source: file
     };
-    setFileList([currentFile, ...fileList]);
+    setFileList(prevList => [currentFile, ...prevList]);
 
     const formData = new FormData();
-    formData.append(file.name, file);
+    formData.append(name, file);
+    if (data) {
+      Object.entries(data).forEach(([key, val]) => {
+        formData.append(key, val);
+      });
+    }
 
     axios
       .post(action, formData, {
@@ -110,6 +127,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
           ...headers,
           'Content-Type': 'multipart/form-data'
         },
+        withCredentials,
         onUploadProgress: e => {
           let percentage = 0;
           if (e.total) {
@@ -166,6 +184,12 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     }
   };
 
+  const handlePreview = (file: UploadFile) => {
+    if (onPreview) {
+      onPreview(file);
+    }
+  };
+
   /**
    * 触发 file 点击事件
    *
@@ -186,9 +210,15 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
         style={{ display: 'none' }}
         type="file"
         name="myFile"
+        accept={accept}
+        multiple={multiple}
         onChange={handleFileChange}
       />
-      <UploadList fileList={fileList} onRemove={handleRemove}></UploadList>
+      <UploadList
+        fileList={fileList}
+        onRemove={handleRemove}
+        onPreview={handlePreview}
+      ></UploadList>
     </div>
   );
 };

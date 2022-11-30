@@ -10,7 +10,13 @@ export interface IProgressProps {
 }
 
 const Progress: FC<PropsWithChildren<IProgressProps>> = props => {
-  const { percnet, customHeight, isShowText, styles, theme } = props;
+  const {
+    percnet = 0,
+    customHeight = 15,
+    isShowText = true,
+    styles,
+    theme = 'primary'
+  } = props;
   return (
     <div className="nnn-progress-bar" style={styles}>
       <div className="nnn-progress-bar-outer" style={{ height: customHeight }}>
@@ -23,13 +29,6 @@ const Progress: FC<PropsWithChildren<IProgressProps>> = props => {
       </div>
     </div>
   );
-};
-
-Progress.defaultProps = {
-  percnet: 0,
-  customHeight: 15,
-  isShowText: true,
-  theme: 'primary'
 };
 
 export default Progress;

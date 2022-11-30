@@ -8,17 +8,21 @@ import Progress from '../../Progress';
 export interface IUploadListProps {
   fileList: UploadFile[]; // 文件列表
   onRemove?: (item: UploadFile) => void; // 删除事件
+  onPreview?: (item: UploadFile) => void;
 }
 
 const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {
-  const { fileList, onRemove = NOOP } = props;
+  const { fileList, onRemove = NOOP, onPreview = NOOP } = props;
 
   return (
     <ul className="nnn-upload-list">
       {fileList.map(file => {
         return (
           <li key={file.uid} className="nnn-upload-list-item">
-            <span className={`file-name file-name-${file.status}`}>
+            <span
+              className={`file-name file-name-${file.status}`}
+              onClick={() => onPreview(file)}
+            >
               <Icon icon="file-alt" theme="secondary" />
               {file.name}
             </span>

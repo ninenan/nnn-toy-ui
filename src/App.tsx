@@ -132,7 +132,16 @@ function App() {
           renderOptions={renderOptions}
         />
         <div>test content</div>
-        <Upload action="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
+        <Upload
+          action="https://www.mocky.io/v2/5cc8019d300000980a055e76"
+          name="testName"
+          data={{
+            test: 'tests',
+            title: 'title'
+          }}
+          accept=".jpg"
+          multiple
+        />
       </header>
     </div>
   );
