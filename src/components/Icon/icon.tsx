@@ -7,20 +7,11 @@ import {
   FontAwesomeIcon,
   FontAwesomeIconProps
 } from '@fortawesome/react-fontawesome';
+import type { ThemeType } from '../../typings';
 library.add(fas);
 
-export type ThemeProps =
-  | 'primary'
-  | 'secondary'
-  | 'success'
-  | 'info'
-  | 'warning'
-  | 'danger'
-  | 'light'
-  | 'dark';
-
 export interface IconProps extends FontAwesomeIconProps {
-  theme?: ThemeProps;
+  theme?: ThemeType;
 }
 
 const Icon: React.FC<PropsWithChildren<IconProps>> = props => {

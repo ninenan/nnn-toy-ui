@@ -29,7 +29,7 @@ export interface UploadFile {
   size: number;
   name: string;
   status?: UploadFileStatus;
-  percent?: number;
+  percent: number;
   source?: File;
   response?: unknown;
   error?: unknown;

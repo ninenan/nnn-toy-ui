@@ -3,6 +3,7 @@ import { UploadFile } from '../upload';
 import Icon from '../../Icon';
 import { NOOP } from '../../../helpers/utils';
 import './index.scss';
+import Progress from '../../Progress';
 
 export interface IUploadListProps {
   fileList: UploadFile[]; // 文件列表
@@ -17,7 +18,7 @@ const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {
       {fileList.map(file => {
         return (
           <li key={file.uid} className="nnn-upload-list-item">
-            <span className={`file-name file-name${file.status}`}>
+            <span className={`file-name file-name-${file.status}`}>
               <Icon icon="file-alt" theme="secondary" />
               {file.name}
             </span>
@@ -35,7 +36,7 @@ const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {
             <span className="file-actions">
               <Icon icon="times" onClick={() => onRemove(file)} />
             </span>
-            {/* {file.status === 'loading'} */}
+            {file.status === 'loading' && <Progress percnet={file.percent} />}
           </li>
         );
       })}

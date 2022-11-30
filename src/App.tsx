@@ -132,10 +132,7 @@ function App() {
           renderOptions={renderOptions}
         />
         <div>test content</div>
-        <Upload
-          action="https://jsonplaceholder.typicode.com/posts/"
-          defaultUploadFileList={fileListMock}
-        />
+        <Upload action="https://www.mocky.io/v2/5cc8019d300000980a055e76" />
       </header>
     </div>
   );
