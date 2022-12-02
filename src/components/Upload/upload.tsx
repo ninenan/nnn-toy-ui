@@ -185,12 +185,6 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     }
   };
 
-  const handlePreview = (file: UploadFile) => {
-    if (onPreview) {
-      onPreview(file);
-    }
-  };
-
   /**
    * 触发 file 点击事件
    *
@@ -218,7 +212,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
       <UploadList
         fileList={fileList}
         onRemove={handleRemove}
-        onPreview={handlePreview}
+        onPreview={onPreview}
       ></UploadList>
     </div>
   );
