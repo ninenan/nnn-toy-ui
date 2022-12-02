@@ -9,6 +9,7 @@ import React, {
 import { isPromise } from '../../helpers/utils';
 import Button from '../Button';
 import UploadList from './UploadList';
+import Dragger from './Dragger';
 
 export interface IUploadProps {
   action: string; // 上传接口
@@ -18,6 +19,7 @@ export interface IUploadProps {
   withCredentials?: boolean; // 是否允许携带 cookie
   accept?: string;
   multiple?: boolean;
+  isDrag?: boolean; // 是否可拖拽上传
   defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>;
   onChange?: (file: File) => void;
@@ -51,6 +53,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     accept,
     multiple,
     defaultUploadFileList,
+    isDrag,
     children,
     beforeUpload,
     onError,
@@ -65,7 +68,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     defaultUploadFileList || []
   );
 
-  const uploadFile = (files: FileList) => {
+  const uploadFiles = (files: FileList) => {
     const postFiles = [...files];
 
     postFiles.forEach(file => {
@@ -170,7 +173,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
     const files = e.target.files;
     if (!files) return;
-    uploadFile(files);
+    uploadFiles(files);
     if (fileEl.current) {
       fileEl.current.value = '';
     }
@@ -198,7 +201,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   return (
     <div className="nnn-upload-component">
       <div onClick={handleChangeFile} style={{ display: 'inline-block' }}>
-        {children}
+        {isDrag ? <Dragger onFile={files => uploadFiles(files)} /> : children}
       </div>
       <input
         ref={fileEl}

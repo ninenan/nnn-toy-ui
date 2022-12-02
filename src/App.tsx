@@ -141,6 +141,7 @@ function App() {
           }}
           accept=".jpg"
           multiple
+          isDrag
         >
           <Button>upload file</Button>
         </Upload>
