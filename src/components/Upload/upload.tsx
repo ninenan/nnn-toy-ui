@@ -6,7 +6,7 @@ import React, {
   useRef,
   useState
 } from 'react';
-import { isPromise, NOOP } from '../../helpers/utils';
+import { isPromise } from '../../helpers/utils';
 import Button from '../Button';
 import UploadList from './UploadList';
 
@@ -51,6 +51,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     accept,
     multiple,
     defaultUploadFileList,
+    children,
     beforeUpload,
     onError,
     onSuccess,
@@ -202,9 +203,9 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
 
   return (
     <div className="nnn-upload-component">
-      <Button btnType="primary" onClick={handleChangeFile}>
-        upload file
-      </Button>
+      <div onClick={handleChangeFile} style={{ display: 'inline-block' }}>
+        {children}
+      </div>
       <input
         ref={fileEl}
         style={{ display: 'none' }}

@@ -141,7 +141,9 @@ function App() {
           }}
           accept=".jpg"
           multiple
-        />
+        >
+          <Button>upload file</Button>
+        </Upload>
       </header>
     </div>
   );
