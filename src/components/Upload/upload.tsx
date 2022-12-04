@@ -17,8 +17,8 @@ export interface IUploadProps {
   data?: Record<string, string>; // 请求扩展参数
   name?: string; // 自定义上传名
   withCredentials?: boolean; // 是否允许携带 cookie
-  accept?: string;
-  multiple?: boolean;
+  accept?: string; // 文件类型
+  multiple?: boolean; // 是否多个
   isDrag?: boolean; // 是否可拖拽上传
   defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>;
