@@ -7,11 +7,11 @@ import React, {
   useState
 } from 'react';
 import { isPromise } from '../../helpers/utils';
-import Button from '../Button';
-import UploadList from './UploadList';
 import Dragger from './Dragger';
+import UploadList from './UploadList';
 
 export interface IUploadProps {
+  // 属性
   action: string; // 上传接口
   headers?: Record<string, unknown>; // 请求头
   data?: Record<string, string>; // 请求扩展参数
@@ -21,8 +21,8 @@ export interface IUploadProps {
   multiple?: boolean; // 是否多个
   isDrag?: boolean; // 是否可拖拽上传
   defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
-  beforeUpload?: (file: File) => boolean | Promise<File>;
-  onChange?: (file: File) => void;
+  beforeUpload?: (file: File) => boolean | Promise<File>; // 上传前事件
+  onChange?: (file: File) => void; // 上传文件改变事件
   onRemove?: (file: UploadFile) => void; // 删除事件
   onProgress?: (percentage: number, file: File) => void; // 上传进度回调事件
   onSuccess?: (data: unknown, file: File) => void; // 成功回调事件
