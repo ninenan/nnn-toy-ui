@@ -35,7 +35,7 @@ const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {
               )}
               {file.status === 'fail' && (
                 <Icon icon="times-circle" theme="danger" />
-              )}{' '}
+              )}
             </span>
             <span className="file-actions">
               <Icon icon="times" onClick={() => onRemove(file)} />
