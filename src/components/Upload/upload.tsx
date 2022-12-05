@@ -205,6 +205,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
       </div>
       <input
         ref={fileEl}
+        className="nnn-file-input"
         style={{ display: 'none' }}
         type="file"
         name="myFile"
