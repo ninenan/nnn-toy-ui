@@ -1,14 +1,14 @@
 import React, { FC, PropsWithChildren } from 'react';
-import { UploadFile } from '../upload';
+import { IUploadFile } from '../upload';
 import Icon from '../../Icon';
 import { NOOP } from '../../../helpers/utils';
 import './index.scss';
 import Progress from '../../Progress';
 
 export interface IUploadListProps {
-  fileList: UploadFile[]; // 文件列表
-  onRemove?: (item: UploadFile) => void; // 删除事件
-  onPreview?: (item: UploadFile) => void;
+  fileList: IUploadFile[]; // 文件列表
+  onRemove?: (item: IUploadFile) => void; // 删除事件
+  onPreview?: (item: IUploadFile) => void;
 }
 
 const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {

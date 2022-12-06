@@ -20,19 +20,19 @@ export interface IUploadProps {
   accept?: string; // 文件类型
   multiple?: boolean; // 是否多个
   isDrag?: boolean; // 是否可拖拽上传
-  defaultUploadFileList?: UploadFile[]; // 默认已上传的文件列表
+  defaultUploadFileList?: IUploadFile[]; // 默认已上传的文件列表
   beforeUpload?: (file: File) => boolean | Promise<File>; // 上传前事件
   onChange?: (file: File) => void; // 上传文件改变事件
-  onRemove?: (file: UploadFile) => void; // 删除事件
+  onRemove?: (file: IUploadFile) => void; // 删除事件
   onProgress?: (percentage: number, file: File) => void; // 上传进度回调事件
   onSuccess?: (data: unknown, file: File) => void; // 成功回调事件
   onError?: (data: unknown, file: File) => void; // 失败回调事件
-  onPreview?: (file: UploadFile) => void; // 上传成功文件操作事件
+  onPreview?: (file: IUploadFile) => void; // 上传成功文件操作事件
 }
 
 export type UploadFileStatus = 'ready' | 'loading' | 'success' | 'fail';
 
-export interface UploadFile {
+export interface IUploadFile {
   uid: string;
   size: number;
   name: string;
@@ -64,7 +64,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     onPreview
   } = props;
   const fileEl = useRef<HTMLInputElement>(null);
-  const [fileList, setFileList] = useState<UploadFile[]>(
+  const [fileList, setFileList] = useState<IUploadFile[]>(
     defaultUploadFileList || []
   );
 
@@ -89,8 +89,8 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   };
 
   const updateFileList = (
-    updateFile: UploadFile,
-    updateObj: Partial<UploadFile>
+    updateFile: IUploadFile,
+    updateObj: Partial<IUploadFile>
   ) => {
     setFileList(prevList => {
       return prevList.map(item => {
@@ -107,7 +107,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   };
 
   const toUpload = (file: File) => {
-    const currentFile: UploadFile = {
+    const currentFile: IUploadFile = {
       uid: Date.now() + '',
       status: 'ready',
       name: file.name,
@@ -179,7 +179,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
     }
   };
 
-  const handleRemove = (file: UploadFile) => {
+  const handleRemove = (file: IUploadFile) => {
     setFileList(prevList => {
       return prevList.filter(item => item.uid !== file.uid);
     });
@@ -201,7 +201,11 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   return (
     <div className="nnn-upload-component">
       <div onClick={handleChangeFile} style={{ display: 'inline-block' }}>
-        {isDrag ? <Dragger onFile={files => uploadFiles(files)} /> : children}
+        {isDrag ? (
+          <Dragger onFile={files => uploadFiles(files)}>{children}</Dragger>
+        ) : (
+          children
+        )}
       </div>
       <input
         ref={fileEl}

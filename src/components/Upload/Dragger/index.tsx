@@ -10,13 +10,13 @@ export interface IDraggerProps {
 const Dragger: React.FC<PropsWithChildren<IDraggerProps>> = props => {
   const { onFile, children } = props;
   const [isDragOver, setIsDragOver] = useState(false);
-  const classes = classNames('nnn-uploader-dragger', {
-    'is-dragover': isDragOver
+  const classes = classNames('', {
+    'is-dragover': isDragOver,
+    'nnn-uploader-dragger': !children
   });
 
   const handleDrag = (e: DragEvent<HTMLElement>, isDragOver: boolean) => {
     e.preventDefault();
-    console.log('isDragOver', isDragOver);
     setIsDragOver(isDragOver);
   };
 
@@ -39,7 +39,7 @@ const Dragger: React.FC<PropsWithChildren<IDraggerProps>> = props => {
       className={classes}
       onDragOver={e => handleDrag(e, true)}
       onDragLeave={e => handleDrag(e, false)}
-      onDrag={handleDrop}
+      onDrop={handleDrop}
     >
       {children ? children : renderDefaultIcon()}
     </div>
