@@ -6,10 +6,8 @@ import {
   RenderResult,
   waitFor
 } from '@testing-library/react';
-import { upload } from '@testing-library/user-event/dist/upload';
 import axios from 'axios';
 import React from 'react';
-
 import Upload, { IUploadProps } from '../upload';
 
 const testProps: IUploadProps = {
