@@ -2,7 +2,6 @@ import '@testing-library/jest-dom/extend-expect';
 import {
   createEvent,
   fireEvent,
-  queryByText,
   render,
   RenderResult,
   waitFor
@@ -79,32 +78,23 @@ describe('test Upload component', () => {
     );
   });
 
-  test('drag and drop', () => {
+  test('drag and drop', async () => {
     if (uploadEl) {
       fireEvent.dragOver(uploadEl);
       expect(uploadEl).toHaveClass('is-dragover');
       fireEvent.dragLeave(uploadEl);
       expect(uploadEl).not.toHaveClass('is-dragover');
 
-      // fireEvent.drop(uploadEl, {
-      //   dataTransfer: {
-      //     files: [testFile]
-      //   }
-      // });
-      // await waitFor(() => {
-      //   expect(wrapper?.queryByText('test.png')).toBeInTheDocument();
-      // });
-
-      // const mockDropEvent = createEvent.drop(uploadEl);
-      // Object.defineProperty(mockDropEvent, 'dataTransfer', {
-      //   value: {
-      //     files: [testFile]
-      //   }
-      // });
-      // fireEvent(uploadEl, mockDropEvent);
-      // await waitFor(() => {
-      //   expect(wrapper?.queryByText('test.png')).toBeInTheDocument();
-      // });
+      const mockDropEvent = createEvent.drop(uploadEl);
+      Object.defineProperty(mockDropEvent, 'dataTransfer', {
+        value: {
+          files: [testFile]
+        }
+      });
+      fireEvent(uploadEl, mockDropEvent);
+      await waitFor(() => {
+        expect(wrapper?.queryByText('test.png')).toBeInTheDocument();
+      });
     }
   });
 });

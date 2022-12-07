@@ -23,6 +23,7 @@ const Dragger: React.FC<PropsWithChildren<IDraggerProps>> = props => {
   const handleDrop = (e: DragEvent<HTMLElement>) => {
     e.preventDefault();
     setIsDragOver(false);
+    console.log('handleDrag: ', e.dataTransfer.files);
     onFile(e.dataTransfer.files);
   };
 
