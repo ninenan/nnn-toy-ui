@@ -6,7 +6,7 @@ import type { DataSourceType } from './components/AutoComplete/autoComplete';
 import Button from './components/Button';
 import Icon from './components/Icon';
 import Input from './components/Input';
-import { Menu, MenuItem, SubMenu } from './components/Menu';
+import { Menu } from './test-com';
 import Transition from './components/Transition';
 import type { UploadFile } from './components/Upload';
 import Upload from './components/Upload';
@@ -70,21 +70,21 @@ function App() {
         <br />
         <Menu
           defaultIndex="0"
-          onSelect={index => console.log(index)}
+          onSelect={(index: string) => console.log(index)}
           defaultOpenSubMenus={['2']}
           mode="horizontal"
         >
-          <MenuItem>test001</MenuItem>
-          <MenuItem disabled>test002</MenuItem>
-          <SubMenu title="dropdown">
-            <MenuItem>dropdown01</MenuItem>
-            <MenuItem>dropdown02</MenuItem>
-          </SubMenu>
-          <MenuItem>test004</MenuItem>
-          <SubMenu title="dropdown-04">
-            <MenuItem>dropdown0401</MenuItem>
-            <MenuItem>dropdown0402</MenuItem>
-          </SubMenu>
+          <Menu.Item>test001</Menu.Item>
+          <Menu.Item disabled>test002</Menu.Item>
+          <Menu.SubMenu title="dropdown">
+            <Menu.Item>dropdown01</Menu.Item>
+            <Menu.Item>dropdown02</Menu.Item>
+          </Menu.SubMenu>
+          <Menu.Item>test004</Menu.Item>
+          <Menu.SubMenu title="dropdown-04">
+            <Menu.Item>dropdown0401</Menu.Item>
+            <Menu.Item>dropdown0402</Menu.Item>
+          </Menu.SubMenu>
         </Menu>
         <Transition
           in={show}
