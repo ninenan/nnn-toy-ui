@@ -1,5 +1,5 @@
 import Upload from './upload';
-import type { IUploadFile as testUp } from './upload';
+import type { IUploadFile } from './upload';
 
 export default Upload;
-export type UploadFile = testUp;
+export type { IUploadFile };

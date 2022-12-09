@@ -1,22 +1,29 @@
 import React, { ChangeEvent, useState } from 'react';
 
-import Alert from './components/Alert';
-import AutoComplete from './components/AutoComplete';
-import type { DataSourceType } from './components/AutoComplete/autoComplete';
-import Button from './components/Button';
-import Icon from './components/Icon';
-import Input from './components/Input';
-import { Menu } from './test-com';
+import {
+  Button,
+  Icon,
+  Menu,
+  Alert,
+  AutoComplete,
+  Input,
+  Upload,
+  Progress
+} from './test-com';
 import Transition from './components/Transition';
-import type { UploadFile } from './components/Upload';
-import Upload from './components/Upload';
+import type { IUploadFile, DataSourceType, IProgressProps } from './test-com';
 import './styles/index.scss';
 
-const fileListMock: UploadFile[] = [
+const fileListMock: IUploadFile[] = [
   { uid: '1', size: 1233, name: 'hello.js', status: 'loading', percent: 30 },
   { uid: '2', size: 1234, name: 'hello.md', status: 'success', percent: 100 },
   { uid: '3', size: 1235, name: 'error.md', status: 'fail', percent: 0 }
 ];
+
+const defaultProgressProps: IProgressProps = {
+  percnet: 12,
+  isShowText: true
+};
 
 function App() {
   const [show, setShow] = useState(true);
@@ -56,6 +63,7 @@ function App() {
   return (
     <div className="App" style={{ paddingLeft: '10px' }}>
       <header className="App-header">
+        <Progress {...defaultProgressProps}></Progress>
         <Icon icon="arrows-alt" className="test-ok" size="6x" theme="warning" />
         <br />
         <Alert
