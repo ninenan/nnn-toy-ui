@@ -69,7 +69,7 @@ const Upload: FC<PropsWithChildren<IUploadProps>> = props => {
   );
 
   const uploadFiles = (files: FileList) => {
-    const postFiles = [...files];
+    const postFiles = Array.from(files);
 
     postFiles.forEach(file => {
       if (!beforeUpload) {

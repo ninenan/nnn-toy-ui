@@ -29,6 +29,7 @@
   "scripts": {
     "start": "react-scripts start",
     "build": "react-scripts build",
+    "build-ts": "tsc -p tsconfig.build.json",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",

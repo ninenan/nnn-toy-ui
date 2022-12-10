@@ -10,6 +10,7 @@ import React, {
 import { PropsWithChildren } from 'react';
 import { commonSize } from '../../typings';
 import Icon from '../Icon';
+import { hasOwn } from '../../helpers/utils';
 
 interface IBaseInputProps {
   disabled?: boolean;
@@ -61,7 +62,7 @@ const Input: FC<PropsWithChildren<IInputProps>> = props => {
   const inputClasses = classNames('input-inner', className);
 
   // fix defaultValue 和 value 同时存在
-  if (Object.hasOwn(props, 'value')) {
+  if (hasOwn(props, 'value')) {
     delete restProps.defaultValue;
     restProps.value = adapterValue(props.value);
   }

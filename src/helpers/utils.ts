@@ -15,3 +15,10 @@ export const sleep = (time: number): Promise<void> =>
 export const NOOP = () => {
   // do nothing
 };
+
+const hasOwnProperty = Object.prototype.hasOwnProperty;
+
+export const hasOwn = (
+  params: Record<string, unknown>,
+  key: string | symbol
+): key is keyof typeof params => hasOwnProperty.call(params, key);
