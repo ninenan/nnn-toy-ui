@@ -1,4 +1,5 @@
-import Alert, { IAlertProps as AlertProps } from './alert';
+import Alert from './alert';
+import type { IAlertProps } from './alert';
 
-export type IAlertProps = AlertProps;
+export type { IAlertProps };
 export default Alert;

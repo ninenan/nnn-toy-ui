@@ -9,10 +9,13 @@ export { default as Input } from './components/Input';
 export { default as Progress } from './components/Progress';
 
 // types
-export { type IInputProps } from './components/Input';
-export {
-  type DataSourceType,
-  type IAutoCompleteProps
+export type { IInputProps } from './components/Input';
+export type { IUploadFile } from './components/Upload';
+export type { IProgressProps } from './components/Progress';
+export type { IAlertProps } from './components/Alert';
+export type {
+  DataSourceType,
+  IAutoCompleteProps
 } from './components/AutoComplete';
-export { type IUploadFile } from './components/Upload';
-export { type IProgressProps } from './components/Progress';
+export type { IButtonProps } from './components/Button';
+export type { IIconProps } from './components/Icon';

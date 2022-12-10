@@ -31,9 +31,9 @@ type NativeBtnProps = IBaseButtonProps &
 type NativeAnchorBtnProps = IBaseButtonProps &
   AnchorHTMLAttributes<HTMLAnchorElement>;
 
-export type ButtonProps = Partial<NativeBtnProps & NativeAnchorBtnProps>;
+export type IButtonProps = Partial<NativeBtnProps & NativeAnchorBtnProps>;
 
-const button: React.FC<PropsWithChildren<ButtonProps>> = props => {
+const button: React.FC<PropsWithChildren<IButtonProps>> = props => {
   const { size, btnType, disabled, href, className, children, ...restProps } =
     props;
 

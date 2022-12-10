@@ -10,11 +10,11 @@ import {
 import type { ThemeType } from '../../typings';
 library.add(fas);
 
-export interface IconProps extends FontAwesomeIconProps {
+export interface IIconProps extends FontAwesomeIconProps {
   theme?: ThemeType;
 }
 
-const Icon: React.FC<PropsWithChildren<IconProps>> = props => {
+const Icon: React.FC<PropsWithChildren<IIconProps>> = props => {
   const { className, theme, ...restProps } = props;
   const classes = classNames('toy-icon', className, {
     [`icon-${theme}`]: theme

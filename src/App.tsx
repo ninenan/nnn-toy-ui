@@ -11,7 +11,14 @@ import {
   Progress
 } from './test-com';
 import Transition from './components/Transition';
-import type { IUploadFile, DataSourceType, IProgressProps } from './test-com';
+import type {
+  IUploadFile,
+  DataSourceType,
+  IProgressProps,
+  IAlertProps,
+  IButtonProps,
+  IInputProps
+} from './test-com';
 import './styles/index.scss';
 
 const fileListMock: IUploadFile[] = [
@@ -23,6 +30,30 @@ const fileListMock: IUploadFile[] = [
 const defaultProgressProps: IProgressProps = {
   percnet: 12,
   isShowText: true
+};
+
+const defaultAlertProps: IAlertProps = {
+  title: '我是 title',
+  message: 'message',
+  type: 'default',
+  afterClose: () => console.log('test-afterClose')
+};
+
+const defaultButtonProps: IButtonProps = {
+  btnType: 'warning',
+  size: 'lg',
+  onClick: () => {
+    console.log(222);
+  }
+};
+
+const defaultInputProps: IInputProps = {
+  type: 'text',
+  style: { width: '300px' },
+  className: 'test',
+  prefix: 'https://',
+  icon: 'search-plus',
+  placeholder: 'basic usage'
 };
 
 function App() {
@@ -66,15 +97,12 @@ function App() {
         <Progress {...defaultProgressProps}></Progress>
         <Icon icon="arrows-alt" className="test-ok" size="6x" theme="warning" />
         <br />
-        <Alert
-          message="message"
-          type="default"
-          afterClose={() => console.log('test-afterClose')}
-        ></Alert>
+        <Alert {...defaultAlertProps}></Alert>
         <br />
         <Button size="lg" onClick={() => setShow(!show)}>
           toggle
         </Button>
+        <Button {...defaultButtonProps}>toggle002</Button>
         <br />
         <Menu
           defaultIndex="0"
@@ -123,12 +151,7 @@ function App() {
         </Transition>
         <br />
         <Input
-          type="text"
-          style={{ width: '300px' }}
-          className="test"
-          prefix="https://"
-          icon="search-plus"
-          placeholder="basic usage"
+          {...defaultInputProps}
           value={testValue}
           onChange={handleChange}
           onSearch={handleSearch}
@@ -150,6 +173,7 @@ function App() {
           accept=".jpg"
           multiple
           isDrag
+          defaultUploadFileList={fileListMock}
         >
           <Button>upload file</Button>
         </Upload>
