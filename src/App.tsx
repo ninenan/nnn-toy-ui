@@ -9,7 +9,7 @@ import {
   Input,
   Upload,
   Progress
-} from './test-com';
+} from './index-test';
 import Transition from './components/Transition';
 import type {
   IUploadFile,
@@ -18,7 +18,7 @@ import type {
   IAlertProps,
   IButtonProps,
   IInputProps
-} from './test-com';
+} from './index-test';
 import './styles/index.scss';
 
 const fileListMock: IUploadFile[] = [

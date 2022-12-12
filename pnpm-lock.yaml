@@ -40,6 +40,7 @@ specifiers:
   react-dom: ^18.2.0
   react-scripts: 5.0.1
   react-transition-group: ^4.4.5
+  rimraf: ^3.0.2
   sass: ^1.55.0
   typescript: ^4.8.4
   web-vitals: ^2.1.4
@@ -90,6 +91,7 @@ devDependencies:
   eslint-plugin-react: 7.31.11_eslint@8.29.0
   eslint-plugin-storybook: 0.6.8_s5ps7njkmjlaqajutnox5ntcla
   prettier: 2.8.0
+  rimraf: 3.0.2
   webpack: 5.75.0
 
 packages:

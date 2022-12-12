@@ -1,7 +1,7 @@
 import classNames from 'classnames';
 import React, { DragEvent, PropsWithChildren, useState } from 'react';
 import Icon from '../../Icon';
-import './index.scss';
+// import './index.scss';
 
 export interface IDraggerProps {
   onFile: (files: FileList) => void;

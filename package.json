@@ -1,6 +1,8 @@
 {
   "name": "nnn-toy-ui",
-  "main": "nnn-toy-ui",
+  "main": "build/index.js",
+  "types": "build/index.d.ts",
+  "module": "build/index.js",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -28,8 +30,10 @@
   },
   "scripts": {
     "start": "react-scripts start",
-    "build": "react-scripts build",
+    "clean": "rimraf ./build",
+    "build": "npm run clean && npm run build-ts && npm run build-sass",
     "build-ts": "tsc -p tsconfig.build.json",
+    "build-sass": "sass ./src/styles/index.scss ./build/index.css --style compressed",
     "test": "react-scripts test",
     "eject": "react-scripts eject",
     "commit": "cz",
@@ -76,6 +80,7 @@
     "eslint-plugin-react": "^7.31.8",
     "eslint-plugin-storybook": "^0.6.4",
     "prettier": "^2.7.1",
+    "rimraf": "^3.0.2",
     "webpack": "^5.74.0"
   },
   "husky": {
