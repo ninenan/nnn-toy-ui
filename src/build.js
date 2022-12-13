@@ -25,7 +25,7 @@ export type { IButtonProps } from './components/Button';
 export type { IIconProps } from './components/Icon';
 `;
 
-fs.writeFile('./src/index.tsx', str, (err: Error) => {
+fs.writeFile('./src/index.tsx', str, err => {
   if (err) throw err;
   console.log('success');
 });

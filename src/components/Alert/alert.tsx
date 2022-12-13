@@ -19,7 +19,7 @@ export interface IAlertProps {
   // 关闭 alert 时触发的事件
   onClose?: voidFnType;
   // 类型
-  type: AlertType;
+  type?: AlertType;
   // 自定义关闭按钮
   customClose?: ReactNode;
   // 信息
