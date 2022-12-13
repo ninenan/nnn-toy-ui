@@ -2,7 +2,6 @@ import React, { FC, PropsWithChildren } from 'react';
 import { IUploadFile } from '../upload';
 import Icon from '../../Icon';
 import { NOOP } from '../../../helpers/utils';
-// import './index.scss';
 import Progress from '../../Progress';
 
 export interface IUploadListProps {
