@@ -33,7 +33,7 @@ type NativeAnchorBtnProps = IBaseButtonProps &
 
 export type IButtonProps = Partial<NativeBtnProps & NativeAnchorBtnProps>;
 
-const button: React.FC<PropsWithChildren<IButtonProps>> = props => {
+const Button: React.FC<PropsWithChildren<IButtonProps>> = props => {
   const { size, btnType, disabled, href, className, children, ...restProps } =
     props;
 
@@ -62,8 +62,8 @@ const button: React.FC<PropsWithChildren<IButtonProps>> = props => {
   );
 };
 
-button.defaultProps = {
+Button.defaultProps = {
   btnType: 'default'
 };
 
-export default button;
+export default Button;
