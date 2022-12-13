@@ -1,3 +1,7 @@
+// import fs from 'node:fs';
+const fs = require('node:fs');
+
+const str = `
 // components
 export { default as Button } from './components/Button';
 export { default as Menu } from './components/Menu';
@@ -19,3 +23,9 @@ export type {
 } from './components/AutoComplete';
 export type { IButtonProps } from './components/Button';
 export type { IIconProps } from './components/Icon';
+`;
+
+fs.writeFile('./src/index.tsx', str, (err: Error) => {
+  if (err) throw err;
+  console.log('success');
+});
