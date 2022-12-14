@@ -2,7 +2,7 @@ import React, { CSSProperties, FC, PropsWithChildren } from 'react';
 import type { ThemeType } from '../../typings';
 
 export interface IProgressProps {
-  percnet: number;
+  percent: number;
   isShowText?: boolean;
   styles?: CSSProperties;
   theme?: ThemeType;
@@ -11,7 +11,7 @@ export interface IProgressProps {
 
 const Progress: FC<PropsWithChildren<IProgressProps>> = props => {
   const {
-    percnet = 0,
+    percent = 0,
     customHeight = 15,
     isShowText = true,
     styles,
@@ -22,9 +22,9 @@ const Progress: FC<PropsWithChildren<IProgressProps>> = props => {
       <div className="nnn-progress-bar-outer" style={{ height: customHeight }}>
         <div
           className={`nnn-progress-bar-inner color-${theme}`}
-          style={{ width: `${percnet}%` }}
+          style={{ width: `${percent}%` }}
         >
-          {isShowText && <span className="inner-text">{`${percnet}%`}</span>}
+          {isShowText && <span className="inner-text">{`${percent}%`}</span>}
         </div>
       </div>
     </div>

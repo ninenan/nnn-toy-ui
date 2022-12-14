@@ -39,7 +39,7 @@ const UploadList: FC<PropsWithChildren<IUploadListProps>> = props => {
             <span className="file-actions">
               <Icon icon="times" onClick={() => onRemove(file)} />
             </span>
-            {file.status === 'loading' && <Progress percnet={file.percent} />}
+            {file.status === 'loading' && <Progress percent={file.percent} />}
           </li>
         );
       })}

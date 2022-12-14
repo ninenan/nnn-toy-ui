@@ -28,7 +28,7 @@ const fileListMock: IUploadFile[] = [
 ];
 
 const defaultProgressProps: IProgressProps = {
-  percnet: 12,
+  percent: 12,
   isShowText: true
 };
 
