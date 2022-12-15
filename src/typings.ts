@@ -1,4 +1,4 @@
-export type voidFnType = () => void;
+export type voidFnType = (...rest: unknown[]) => void;
 export type commonSize = 'lg' | 'sm';
 export type ThemeType =
   | 'primary'
