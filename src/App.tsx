@@ -95,7 +95,7 @@ function App() {
     <div className="App" style={{ paddingLeft: '10px' }}>
       <header className="App-header">
         <Progress {...defaultProgressProps}></Progress>
-        <Icon icon="arrows-alt" className="test-ok" size="6x" theme="warning" />
+        <Icon icon="arrows-alt" className="test-ok" size="2x" theme="warning" />
         <br />
         <Alert {...defaultAlertProps}></Alert>
         <br />

@@ -1,17 +1,3 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import './styles/index.scss';
-import App from './App';
-
-const root = ReactDOM.createRoot(
-  document.getElementById('root') as HTMLElement
-);
-root.render(
-  <React.StrictMode>
-    <App />
-  </React.StrictMode>
-);
-
 // components
 export { default as Button } from './components/Button';
 export { default as Menu } from './components/Menu';
@@ -33,7 +19,3 @@ export type {
 } from './components/AutoComplete';
 export type { IButtonProps } from './components/Button';
 export type { IIconProps } from './components/Icon';
-
-// If you want to start measuring performance in your app, pass a function
-// to log results (for example: reportWebVitals(console.log))
-// or send to an analytics endpoint. Learn more: https://bit.ly/CRA-vitals

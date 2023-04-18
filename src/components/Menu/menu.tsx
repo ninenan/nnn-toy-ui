@@ -43,7 +43,7 @@ const Menu: React.FC<PropsWithChildren<IMenuProps>> = props => {
 
   const classes = classNames('menu', className, {
     'menu-vertical': mode === 'vertical',
-    'menu-horizontal': mode !== 'vertical'
+    'menu-horizontal': mode === 'horizontal'
   });
 
   const handleClick = (index: string) => {
