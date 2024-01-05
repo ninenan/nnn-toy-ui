@@ -12,11 +12,12 @@ import React, {
 import { isPromise } from '../../helpers/utils';
 import useClickOutside from '../../hooks/useClickOutside';
 import useDebounce from '../../hooks/useDebounce';
+import { TNeverAny } from '../../typings';
 import Icon from '../Icon';
 import Input, { IInputProps } from '../Input';
 import Transition from '../Transition';
 
-export type DataSourceType<T = any> = T & {
+export type DataSourceType<T = TNeverAny> = T & {
   value: string;
 };
 

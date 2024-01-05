@@ -9,3 +9,5 @@ export type ThemeType =
   | 'danger'
   | 'light'
   | 'dark';
+
+export type TNeverAny = any;
